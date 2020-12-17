@@ -137,7 +137,6 @@ def play_game():
                 print(f"{idx+1}. {item}")
             item_chosen = int(input("Which item would you like to pick up? "))
             active_player.add_items(curr_items_list[item_chosen-1])
-            del()
             curr_items_list.pop(item_chosen-1)
             continue_choosing = input("Would you like to choose another item? y or n\n")
             if continue_choosing.lower() == "n":
