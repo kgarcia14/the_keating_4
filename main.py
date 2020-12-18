@@ -187,9 +187,6 @@ def play_game():
                     for items in curr_items_list:
                         if items.name == active_player.items[item_to_use - 1]:
                             item_to_use = items
-                    #         string_item = str(item)
-                    #         item_used = string_item.replace(".name", "")
-                    #         print(item_used)
                     active_player.item_used(item_to_use)
                     print(active_player.items)
 
@@ -197,9 +194,6 @@ def play_game():
                     print("Which item would you like get rid of?")
                     print_menu(active_player.items)
 
-                # else:  # exit: back to main_menu print main menu This might not be necessary
-
-                # We need a location menu! Which two locations will be connected to the current location.
         if main_menu_choice == "3":  # Move to a new location
             elevator_only = False
             for location in elevator_only_locations:
@@ -214,7 +208,7 @@ def play_game():
             curr_location = location_choice_list[location_choice - 1]
             print(curr_location)
         if main_menu_choice == "4":
-            pass
+            play_game = False
 
 
 play_game()
