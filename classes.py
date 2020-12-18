@@ -22,7 +22,9 @@ class Character:
 
         # Create method for removing items(when the character wants to remove the items they get removed from the list)JoJo
     def remove_items(self, item):
-        self.curr_items_list
+        self.item.pop
+
+
 
 
 class Location:
