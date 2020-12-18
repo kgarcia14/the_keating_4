@@ -25,12 +25,12 @@ community_center = Location("Community Center", "pass")
 # Items Instantiation
 # Josh's Room
 monitor = Item("monitor", josh_room)
-jacket = Item("jacket", josh_room, -10)
+jacket = Item("jacket", josh_room, 0, -10)
 bag_of_chips = Item("bag of chips", josh_room, 5)
 items_josh_room = [monitor.name, jacket.name, bag_of_chips.name]
 
 # Liz's Room
-tshirt = Item("tshirt", liz_office, -10)
+tshirt = Item("tshirt", liz_office, 0, -10)
 # input code in book and if you can solve unlocks ryan phone number and he distracts security guard for you
 book = Item("book", liz_office)
 keyboard = Item("keyboard", liz_office, 15)
@@ -38,13 +38,13 @@ items_liz_room = [tshirt.name, book.name, keyboard.name]
 
 # # Elevator
 key_card = Item("Dropped Key Card", elevator)
-trash_can = Item("Trash Can", elevator, -10)
+trash_can = Item("Trash Can", elevator, 5, -10)
 items_elevator = [key_card.name, trash_can.name]
 
 # # Roof
-tarp = Item("tarp", roof, -15)
-chair = Item("chair", roof)
-firepit = Item("firepit", roof, -20)
+tarp = Item("tarp", roof, 5, -15)
+chair = Item("chair", roof, 15)
+firepit = Item("firepit", roof, 5, -20)
 items_roof = [tarp.name, chair.name, firepit.name]
 
 # Kitchen
@@ -81,13 +81,14 @@ items_community_center = [arcade_game.name,
 main_menu = ["Search for anything useful", "Look at my items",
              "Move to a new location", "Call the Police"]
 
+item_use_menu = ["Use item", "Get rid of an item", "exit"]
+
+# Functions
+
 
 def print_menu(menu):
     for idx, choice in enumerate(menu):
         print(f"{idx+1}. {choice}")
-
-
-item_use_menu = ["Use item", "Get rid of an item", "exit"]
 
 
 def which_list(room):
@@ -142,9 +143,11 @@ def play_game():
         if curr_location == josh_room:
             print_menu(item_use_menu)
             choice_item_use_menu = int(input("Please choose: "))
-            if choice_item_use_menu == 1:
-                # use item
-            if choice_item_use_menu == 2:
+            if choice_item_use_menu == 1:  # use item
+
+            elif choice_item_use_menu == 2:  # get rid of item
+
+            else:  # exit
 
     if main_menu_choice == "3":
     if main_menu_choice == "4":
