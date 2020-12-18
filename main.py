@@ -86,6 +86,7 @@ main_menu = ["Search for anything useful", "Look at my items",
 
 item_use_menu = ["Use item", "Get rid of an item", "exit"]
 
+
 # Functions
 
 
@@ -134,6 +135,29 @@ def play_game():
             item_loop = True
             while item_loop:
                 print_menu(curr_items_list)
+               
+                if len(active_player.items) >= 1:
+                    full_menu_choice = (input("You are already holding the maximum number of items. Would you like to remove one? y or n:  "))
+                    if full_menu_choice.lower() == "y":
+                        print_menu(active_player.items)
+                        full_menu_remove_choice = int(input("Which item would you like to remove? "))
+                        active_player.items.pop(full_menu_remove_choice -1)
+                    elif full_menu_choice == "n":
+                        pass
+                    #incorrect responce error catch    
+                    else:
+                        print()
+                        pass
+                else:
+                    item_chosen = int(input("Which item would you like to pick up? "))
+                    active_player.add_items(curr_items_list[item_chosen-1])
+                    curr_items_list.pop(item_chosen-1)
+                    continue_choosing = input(
+                        "Would you like to choose another item? y or n\n")
+                    if continue_choosing.lower() == "n":
+                        item_loop = False
+
+        
                 item_chosen = int(input("Which item would you like to pick up? "))
                 active_player.add_items(curr_items_list[item_chosen-1])
                 curr_items_list.pop(item_chosen-1)
