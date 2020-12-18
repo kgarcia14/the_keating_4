@@ -117,28 +117,29 @@ def which_list(room):
 
 
 def play_game():
+
+    location_choice_list = [josh_room.name, elevator.name]
+    print("Welcome to How To Get Away With Murder")
+    # We need some info here about the game....so you know what character you want to choose, must use items in Josh's room!
+    print()  # Add in player stats and special characteristics
+    print_menu(main_players)
+    choosing_player = input("Please pick a player: ")
+    if choosing_player == "1":
+        active_player = crystal
+    if choosing_player == "2":
+        active_player = jojo
+    if choosing_player == "3":
+        active_player = kurtis
+    if choosing_player == "4":
+        active_player = joshua
+    if choosing_player == "1000":
+        active_player = annalise
+    print(
+        f'You have selected {active_player.name} with an alert level of {active_player.alert_level}!')
+    # Here we need to set the scene!
+    curr_location = josh_room
     play_game = True
     while play_game:
-        location_choice_list = [josh_room.name, elevator.name]
-        print("Welcome to How To Get Away With Murder")
-        # We need some info here about the game....so you know what character you want to choose, must use items in Josh's room!
-        print()  # Add in player stats and special characteristics
-        print_menu(main_players)
-        choosing_player = input("Please pick a player: ")
-        if choosing_player == "1":
-            active_player = crystal
-        # if choosing_player == "2":
-        #     active_player = jojo
-        # if choosing_player == "3":
-        #     active_player = kurtis
-        # if choosing_player == "4":
-        #     active_player = joshua
-        # if choosing_player == "1000":
-        #     active_player = annalise
-        print(
-            f'You have selected {active_player.name} with an alert level of {active_player.alert_level}!')
-        # Here we need to set the scene!
-        curr_location = josh_room
         curr_items_list = which_list(curr_location)
         print("What would you like to do now?")
         print_string_menu(main_menu)
