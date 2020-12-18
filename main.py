@@ -9,7 +9,7 @@ jojo = Character('JoJo', 10)
 kurtis = Character('Kurtis', 30)
 joshua = Character('Joshua', 5)
 annalise = Character('Annalise Keating', 0)
-main_players = [crystal.name, jojo.name, kurtis.name, joshua.name]
+main_players = [crystal, jojo, kurtis, joshua]
 
 # Location Instantiation
 josh_room = Location("Quiet Room", "pass")
@@ -22,8 +22,8 @@ security_desk = Location("Security Desk", "pass")
 parking_garage = Location("Parking Garage", "pass")
 community_center = Location("Community Center", "pass")
 location_keys = {
-    josh_room: [liz_office.name, kitchen.name],
-    liz_office: [josh_room.name, kitchen.name],
+    josh_room: [liz_office, kitchen],
+    liz_office: [josh_room, kitchen],
     kitchen: [liz_office, josh_room]
 }
 elevator_only_locations = [roof, community_center, gym]
@@ -33,41 +33,41 @@ elevator_only_locations = [roof, community_center, gym]
 monitor = Item("monitor", josh_room)
 jacket = Item("jacket", josh_room, 0, -10)
 bag_of_chips = Item("bag of chips", josh_room, 5)
-items_josh_room = [monitor.name, jacket.name, bag_of_chips.name]
+items_josh_room = [monitor, jacket, bag_of_chips]
 
 # Liz's Room
 tshirt = Item("tshirt", liz_office, 0, -10)
 # input code in book and if you can solve unlocks ryan phone number and he distracts security guard for you
 book = Item("book", liz_office)
 keyboard = Item("keyboard", liz_office, 15)
-items_liz_room = [tshirt.name, book.name, keyboard.name]
+items_liz_room = [tshirt, book, keyboard]
 
 # # Elevator
 key_card = Item("Dropped Key Card", elevator)
 trash_can = Item("Trash Can", elevator, 5, -10)
-items_elevator = [key_card.name, trash_can.name]
+items_elevator = [key_card, trash_can]
 
 # # Roof
 tarp = Item("tarp", roof, 5, -15)
 chair = Item("chair", roof, 15)
 firepit = Item("firepit", roof, 5, -20)
-items_roof = [tarp.name, chair.name, firepit.name]
+items_roof = [tarp, chair, firepit]
 
 # Kitchen
 sink = Item("sink", kitchen, -10)
 bleach = Item("bleach", kitchen, -10)
 freezer = Item("freezer", kitchen, 5)
-items_kitchen = [sink.name, bleach.name, freezer.name]
+items_kitchen = [sink, bleach, freezer]
 
 # # Gym
 shower = Item("shower", gym, -5)
 shower_curtain = Item("shower_curtain", gym, -5)
 weights = Item("weights", gym, +5)
-items_gym = [shower.name, shower_curtain.name, weights.name]
+items_gym = [shower, shower_curtain, weights]
 
 # # Security Desk
 security_desk = Item("security desk", security_desk,)
-items_security_desk = [security_desk.name]
+items_security_desk = [security_desk]
 
 # Parking Garage
 get_away_car = Item("Brittani in the get away car", parking_garage, -100)
@@ -91,11 +91,14 @@ item_use_menu = ["Use item", "Get rid of an item", "exit"]
 
 
 # Functions
+def print_string_menu(menu):
+    for idx, choice in enumerate(menu):
+        print(f"{idx+1}. {choice}")
 
 
 def print_menu(menu):
     for idx, choice in enumerate(menu):
-        print(f"{idx+1}. {choice}")
+        print(f"{idx+1}. {choice.name}")
 
 
 def print_location_options(location_options):
@@ -138,7 +141,7 @@ def play_game():
         curr_location = josh_room
         curr_items_list = which_list(curr_location)
         print("What would you like to do now?")
-        print_menu(main_menu)
+        print_main_menu(main_menu)
         print(curr_location.description)
         active_player.print_alert_status()
         main_menu_choice = input("Please choose: ")
@@ -147,7 +150,7 @@ def play_game():
             while item_loop:
                 print_menu(curr_items_list)
 
-                if len(active_player.items) >= 1:
+                if len(active_player.items) >= 5:
                     full_menu_choice = (input(
                         "You are already holding the maximum number of items. Would you like to remove one? y or n:  "))
                     if full_menu_choice.lower() == "y":
@@ -171,15 +174,6 @@ def play_game():
                     if continue_choosing.lower() == "n":
                         item_loop = False
 
-                item_chosen = int(
-                    input("Which item would you like to pick up? "))
-                active_player.add_items(curr_items_list[item_chosen-1])
-                curr_items_list.pop(item_chosen-1)
-                continue_choosing = input(
-                    "Would you like to choose another item? y or n\n")
-                if continue_choosing.lower() == "n":
-                    item_loop = False
-
         if main_menu_choice == "2":
             print_menu(active_player.items)
             if curr_location == josh_room:
@@ -187,15 +181,16 @@ def play_game():
                 print_menu(item_use_menu)
                 choice_item_use_menu = int(input("Please choose: "))
                 if choice_item_use_menu == 1:
-                    print_menu(active_player.items)
+                    print_main_menu(active_player.items)
                     item_to_use = int(input("Choose which item to use:"))
                     for items in curr_items_list:
-                        if items == active_player.items[item_to_use - 1]:
-                            string_item = str(item)
-                            item_used = string_item.replace(".name", "")
-                            print(item_used)
-                    # active_player.item_used(active_player.items[item_to_use -1])
-                    # print(active_player.items)
+                        if items.name == active_player.items[item_to_use - 1]:
+                            item_to_use = items
+                    #         string_item = str(item)
+                    #         item_used = string_item.replace(".name", "")
+                    #         print(item_used)
+                    active_player.item_used(item_to_use)
+                    print(active_player.items)
 
                 elif choice_item_use_menu == 2:  # get rid of item: print items and ask to choose an item to get rid of. run method for removing item JoJo
                     print("Which item would you like get rid of?")
