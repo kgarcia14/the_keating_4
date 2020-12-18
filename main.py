@@ -141,7 +141,7 @@ def play_game():
         curr_location = josh_room
         curr_items_list = which_list(curr_location)
         print("What would you like to do now?")
-        print_main_menu(main_menu)
+        print_string_menu(main_menu)
         print(curr_location.description)
         active_player.print_alert_status()
         main_menu_choice = input("Please choose: ")
@@ -181,7 +181,7 @@ def play_game():
                 print_menu(item_use_menu)
                 choice_item_use_menu = int(input("Please choose: "))
                 if choice_item_use_menu == 1:
-                    print_main_menu(active_player.items)
+                    print_string_menu(active_player.items)
                     item_to_use = int(input("Choose which item to use:"))
                     for items in curr_items_list:
                         if items.name == active_player.items[item_to_use - 1]:
