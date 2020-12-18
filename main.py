@@ -21,6 +21,9 @@ gym = Location("Gym", "pass")
 security_desk = Location("Security Desk", "pass")
 parking_garage = Location("Parking Garage", "pass")
 community_center = Location("Community Center", "pass")
+location_keys = {
+    josh_room: liz_office,
+}
 
 # Items Instantiation
 # Josh's Room
@@ -99,58 +102,61 @@ def which_list(room):
 
 
 def play_game():
+    play_game = True
+    while play_game:
+        location_choice_list = [josh_room.name, elevator.name]
+        print("Welcome to How To Get Away With Murder")
+        # We need some info here about the game....so you know what character you want to choose, must use items in Josh's room!
+        print()  # Add in player stats and special characteristics
+        print_menu(main_players)
+        choosing_player = input("Please pick a player: ")
+        if choosing_player == "1":
+            active_player = crystal
+        if choosing_player == "2":
+            active_player = jojo
+        if choosing_player == "3":
+            active_player = kurtis
+        if choosing_player == "4":
+            active_player = joshua
+        if choosing_player == "1000":
+            active_player = annalise
+        print(
+            f'You have selected {active_player.name} with an alert level of {active_player.alert_level}!')
+        # Here we need to set the scene!
+        curr_location = josh_room
+        curr_items_list = which_list(curr_location)
+        print("What would you like to do now?")
+        print_menu(main_menu)
+        print(curr_location.description)
+        active_player.print_alert_status()
+        main_menu_choice = input("Please choose: ")
+        if main_menu_choice == "1":
+            item_loop = True
+            while item_loop:
+                print_menu(curr_items_list)
+                                item_chosen = int(input("Which item would you like to pick up? "))
+                active_player.add_items(curr_items_list[item_chosen-1])
+                curr_items_list.pop(item_chosen-1)
+                continue_choosing = input(
+                    "Would you like to choose another item? y or n\n")
+                if continue_choosing.lower() == "n":
+                    item_loop = False
 
-    print("Welcome to How To Get Away With Murder")
-    # We need some info here about the game....so you know what character you want to choose, must use items in Josh's room!
-    print()  # Add in player stats and special characteristics
-    for idx, player in enumerate(main_players):
-        print(f"{idx+1}. {player}")
-    choosing_player = input("Please pick a player: ")
-    if choosing_player == "1":
-        active_player = crystal
-    if choosing_player == "2":
-        active_player = jojo
-    if choosing_player == "3":
-        active_player = kurtis
-    if choosing_player == "4":
-        active_player = joshua
-    if choosing_player == "1000":
-        active_player = annalise
-    print(
-        f'You have selected {active_player.name} with an alert level of {active_player.alert_level}!')
-    # Here we need to set the scene!
-    curr_location = josh_room
-    curr_items_list = which_list(curr_location)
-    print("What would you like to do now?")
-    print_menu(main_menu)
-    print(curr_location.description)
-    active_player.print_alert_status()
-    main_menu_choice = input("Please choose: ")
-    if main_menu_choice == "1":
-        item_loop = True
-        while item_loop:
-            print_menu(curr_items_list)
-            item_chosen = int(input("Which item would you like to pick up? "))
-            active_player.add_items(curr_items_list[item_chosen-1])
-            curr_items_list.pop(item_chosen-1)
-            continue_choosing = input(
-                "Would you like to choose another item? y or n\n")
-            if continue_choosing.lower() == "n":
-                item_loop = False
+        if main_menu_choice == "2":
+            print_menu(active_player.items)
+            if curr_location == josh_room:
+                print_menu(item_use_menu)
+                choice_item_use_menu = int(input("Please choose: "))
+                if choice_item_use_menu == 1:  # use item: print items and ask to choose an item to use. Run method for using item. Kurti
+                elif choice_item_use_menu == 2:  # get rid of item: print items and ask to choose an item to get rid of. run method for removing item JoJo
 
-    if main_menu_choice == "2":
-        print_menu(active_player.items)
-        if curr_location == josh_room:
-            print_menu(item_use_menu)
-            choice_item_use_menu = int(input("Please choose: "))
-            if choice_item_use_menu == 1:  # use item
+                # else:  # exit: back to main_menu print main menu This might not be necessary
 
-            elif choice_item_use_menu == 2:  # get rid of item
-
-            else:  # exit
-
-    if main_menu_choice == "3":
-    if main_menu_choice == "4":
+                # We need a location menu! Which two locations will be connected to the current location.
+        if main_menu_choice == "3":  # Move to a new location
+            location_choice_list.append(location_keys[curr_location])
+            print_menu(location_choice_list)
+        if main_menu_choice == "4":
 
 
 play_game()
