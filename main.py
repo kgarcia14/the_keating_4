@@ -145,6 +145,7 @@ def play_game():
         if main_menu_choice == "2":
             print_menu(active_player.items)
             if curr_location == josh_room:
+
                 print_menu(item_use_menu)
                 choice_item_use_menu = int(input("Please choose: "))
                 if choice_item_use_menu == 1:
@@ -157,16 +158,19 @@ def play_game():
                             print(item_used)
                     # active_player.item_used(active_player.items[item_to_use -1])
                     # print(active_player.items)  
-        #     elif choice_item_use_menu == 2:     # get rid of item: print items and ask to choose an item to get rid of. run method for removing item JoJo
 
-        #     else:  # exit: back to main_menu print main menu This might not be necessary
+                elif choice_item_use_menu == 2:  # get rid of item: print items and ask to choose an item to get rid of. run method for removing item JoJo
+                    print("Which item would you like get rid of?")
+                    print_menu(active_player.items)
 
-        #         # We need a location menu! Which two locations will be connected to the current location.
-        # if main_menu_choice == "3":  # Move to a new location
-        #     location_choice_list.append(location_keys[curr_location])
-        #     print_menu(location_choice_list)
-        # if main_menu_choice == "4":
+                # else:  # exit: back to main_menu print main menu This might not be necessary
 
+                # We need a location menu! Which two locations will be connected to the current location.
+        if main_menu_choice == "3":  # Move to a new location
+            location_choice_list.append(location_keys[curr_location])
+            print_menu(location_choice_list)
+        if main_menu_choice == "4":
+            pass
 
 
 play_game()

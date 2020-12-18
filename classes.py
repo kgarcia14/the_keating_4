@@ -21,7 +21,9 @@ class Character:
 
         # Create method for removing items(when the character wants to remove the items they get removed from the list)JoJo
     def remove_items(self, item):
-        self.active_player.list.pop(full_menu_remove_choice -1)
+        self.item.pop
+
+
 
 
 class Location:
