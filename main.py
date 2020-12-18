@@ -100,8 +100,7 @@ def print_menu(menu):
 def print_location_options(location_options):
     location_name_list = []
     for location in location_options:
-        location_name_list.append(location.name)
-        print(location_name_list)
+        location_name_list.append(location)
     for idx, choice in enumerate(location_name_list):
         print(f"{idx+1}. {choice}")
 
@@ -174,13 +173,12 @@ def play_game():
                 if location == curr_location:
                     elevator_only = True
             if elevator_only == False:
-                location_choice_list.append(location_keys[curr_location])
-            print_menu(location_choice_list)
+                for location in location_keys[curr_location]:
+                    location_choice_list.append(location)
+            print_location_options(location_choice_list)
             curr_location = []
         if main_menu_choice == "4":
             pass
-
-
 
 
 play_game()
