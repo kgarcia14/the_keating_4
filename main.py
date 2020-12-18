@@ -89,6 +89,7 @@ main_menu = ["Search for anything useful", "Look at my items",
 
 item_use_menu = ["Use item", "Get rid of an item", "exit"]
 
+
 # Functions
 
 
@@ -123,14 +124,14 @@ def play_game():
         choosing_player = input("Please pick a player: ")
         if choosing_player == "1":
             active_player = crystal
-        if choosing_player == "2":
-            active_player = jojo
-        if choosing_player == "3":
-            active_player = kurtis
-        if choosing_player == "4":
-            active_player = joshua
-        if choosing_player == "1000":
-            active_player = annalise
+        # if choosing_player == "2":
+        #     active_player = jojo
+        # if choosing_player == "3":
+        #     active_player = kurtis
+        # if choosing_player == "4":
+        #     active_player = joshua
+        # if choosing_player == "1000":
+        #     active_player = annalise
         print(
             f'You have selected {active_player.name} with an alert level of {active_player.alert_level}!')
         # Here we need to set the scene!
@@ -145,6 +146,31 @@ def play_game():
             item_loop = True
             while item_loop:
                 print_menu(curr_items_list)
+
+                if len(active_player.items) >= 1:
+                    full_menu_choice = (input(
+                        "You are already holding the maximum number of items. Would you like to remove one? y or n:  "))
+                    if full_menu_choice.lower() == "y":
+                        print_menu(active_player.items)
+                        full_menu_remove_choice = int(
+                            input("Which item would you like to remove? "))
+                        active_player.items.pop(full_menu_remove_choice - 1)
+                    elif full_menu_choice == "n":
+                        pass
+                    # incorrect responce error catch
+                    else:
+                        print()
+                        pass
+                else:
+                    item_chosen = int(
+                        input("Which item would you like to pick up? "))
+                    active_player.add_items(curr_items_list[item_chosen-1])
+                    curr_items_list.pop(item_chosen-1)
+                    continue_choosing = input(
+                        "Would you like to choose another item? y or n\n")
+                    if continue_choosing.lower() == "n":
+                        item_loop = False
+
                 item_chosen = int(
                     input("Which item would you like to pick up? "))
                 active_player.add_items(curr_items_list[item_chosen-1])
@@ -157,12 +183,23 @@ def play_game():
         if main_menu_choice == "2":
             print_menu(active_player.items)
             if curr_location == josh_room:
+
                 print_menu(item_use_menu)
                 choice_item_use_menu = int(input("Please choose: "))
-                if choice_item_use_menu == 1:  # use item: print items and ask to choose an item to use. Run method for using item. Kurtis
-                    pass
+                if choice_item_use_menu == 1:
+                    print_menu(active_player.items)
+                    item_to_use = int(input("Choose which item to use:"))
+                    for items in curr_items_list:
+                        if items == active_player.items[item_to_use - 1]:
+                            string_item = str(item)
+                            item_used = string_item.replace(".name", "")
+                            print(item_used)
+                    # active_player.item_used(active_player.items[item_to_use -1])
+                    # print(active_player.items)
+
                 elif choice_item_use_menu == 2:  # get rid of item: print items and ask to choose an item to get rid of. run method for removing item JoJo
-                    pass
+                    print("Which item would you like get rid of?")
+                    print_menu(active_player.items)
 
                 # else:  # exit: back to main_menu print main menu This might not be necessary
 

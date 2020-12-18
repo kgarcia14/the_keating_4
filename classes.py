@@ -15,14 +15,15 @@ class Character:
     def add_items(self, item):
         self.items.append(item)
 
-    def item_used(self):
-        self.alert_level
-
-        # Create method for using items(when items are used they affect alert level => items.alert_effect_used) Kurtis
+# Create method for using items(when items are used they affect alert level => items.alert_effect_used) Kurtis
+    def item_used(self, item):
+        self.alert_level += item.alert_effect_used
 
         # Create method for removing items(when the character wants to remove the items they get removed from the list)JoJo
     def remove_items(self, item):
-        self.curr_items_list
+        self.item.pop
+
+
 
 
 class Location:
