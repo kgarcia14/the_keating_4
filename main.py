@@ -22,8 +22,11 @@ security_desk = Location("Security Desk", "pass")
 parking_garage = Location("Parking Garage", "pass")
 community_center = Location("Community Center", "pass")
 location_keys = {
-    josh_room: liz_office,
+    josh_room: [liz_office.name, kitchen.name],
+    liz_office: [josh_room.name, kitchen.name],
+    kitchen: [liz_office, josh_room]
 }
+elevator_only_locations = [roof, community_center, gym]
 
 # Items Instantiation
 # Josh's Room
@@ -94,6 +97,15 @@ def print_menu(menu):
         print(f"{idx+1}. {choice}")
 
 
+def print_location_options(location_options):
+    location_name_list = []
+    for location in location_options:
+        location_name_list.append(location.name)
+        print(location_name_list)
+    for idx, choice in enumerate(location_name_list):
+        print(f"{idx+1}. {choice}")
+
+
 def which_list(room):
     if room == josh_room:
         return items_josh_room
@@ -134,7 +146,8 @@ def play_game():
             item_loop = True
             while item_loop:
                 print_menu(curr_items_list)
-                                item_chosen = int(input("Which item would you like to pick up? "))
+                item_chosen = int(
+                    input("Which item would you like to pick up? "))
                 active_player.add_items(curr_items_list[item_chosen-1])
                 curr_items_list.pop(item_chosen-1)
                 continue_choosing = input(
@@ -147,16 +160,27 @@ def play_game():
             if curr_location == josh_room:
                 print_menu(item_use_menu)
                 choice_item_use_menu = int(input("Please choose: "))
-                if choice_item_use_menu == 1:  # use item: print items and ask to choose an item to use. Run method for using item. Kurti
+                if choice_item_use_menu == 1:  # use item: print items and ask to choose an item to use. Run method for using item. Kurtis
+                    pass
                 elif choice_item_use_menu == 2:  # get rid of item: print items and ask to choose an item to get rid of. run method for removing item JoJo
+                    pass
 
                 # else:  # exit: back to main_menu print main menu This might not be necessary
 
                 # We need a location menu! Which two locations will be connected to the current location.
         if main_menu_choice == "3":  # Move to a new location
-            location_choice_list.append(location_keys[curr_location])
+            elevator_only = False
+            for location in elevator_only_locations:
+                if location == curr_location:
+                    elevator_only = True
+            if elevator_only == False:
+                location_choice_list.append(location_keys[curr_location])
             print_menu(location_choice_list)
+            curr_location = []
         if main_menu_choice == "4":
+            pass
+
+
 
 
 play_game()
