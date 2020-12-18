@@ -22,7 +22,8 @@ class Location:
 
 
 class Item:
-    def __init__(self, name, associated_room, alert_effect=0):
+    def __init__(self, name, associated_room, alert_effect_pu=0, alert_level_used=0):
         self.name = name
         self.associated_room = associated_room
-        self.alert_effect = alert_effect
+        self.alert_effect_pu = alert_effect_pu
+        self.alert_effect_used = alert_effect_used
