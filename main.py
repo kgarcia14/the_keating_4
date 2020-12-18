@@ -22,8 +22,11 @@ security_desk = Location("Security Desk", "pass")
 parking_garage = Location("Parking Garage", "pass")
 community_center = Location("Community Center", "pass")
 location_keys = {
-    josh_room: liz_office,
+    josh_room: [liz_office.name, kitchen.name],
+    liz_office: [josh_room.name, kitchen.name],
+    kitchen: [liz_office, josh_room]
 }
+elevator_only_locations = [roof, community_center, gym]
 
 # Items Instantiation
 # Josh's Room
@@ -95,6 +98,14 @@ def print_menu(menu):
         print(f"{idx+1}. {choice}")
 
 
+def print_location_options(location_options):
+    location_name_list = []
+    for location in location_options:
+        location_name_list.append(location)
+    for idx, choice in enumerate(location_name_list):
+        print(f"{idx+1}. {choice}")
+
+
 def which_list(room):
     if room == josh_room:
         return items_josh_room
@@ -135,21 +146,24 @@ def play_game():
             item_loop = True
             while item_loop:
                 print_menu(curr_items_list)
-               
+
                 if len(active_player.items) >= 1:
-                    full_menu_choice = (input("You are already holding the maximum number of items. Would you like to remove one? y or n:  "))
+                    full_menu_choice = (input(
+                        "You are already holding the maximum number of items. Would you like to remove one? y or n:  "))
                     if full_menu_choice.lower() == "y":
                         print_menu(active_player.items)
-                        full_menu_remove_choice = int(input("Which item would you like to remove? "))
-                        active_player.items.pop(full_menu_remove_choice -1)
+                        full_menu_remove_choice = int(
+                            input("Which item would you like to remove? "))
+                        active_player.items.pop(full_menu_remove_choice - 1)
                     elif full_menu_choice == "n":
                         pass
-                    #incorrect responce error catch    
+                    # incorrect responce error catch
                     else:
                         print()
                         pass
                 else:
-                    item_chosen = int(input("Which item would you like to pick up? "))
+                    item_chosen = int(
+                        input("Which item would you like to pick up? "))
                     active_player.add_items(curr_items_list[item_chosen-1])
                     curr_items_list.pop(item_chosen-1)
                     continue_choosing = input(
@@ -157,8 +171,8 @@ def play_game():
                     if continue_choosing.lower() == "n":
                         item_loop = False
 
-        
-                item_chosen = int(input("Which item would you like to pick up? "))
+                item_chosen = int(
+                    input("Which item would you like to pick up? "))
                 active_player.add_items(curr_items_list[item_chosen-1])
                 curr_items_list.pop(item_chosen-1)
                 continue_choosing = input(
@@ -176,12 +190,12 @@ def play_game():
                     print_menu(active_player.items)
                     item_to_use = int(input("Choose which item to use:"))
                     for items in curr_items_list:
-                        if items == active_player.items[item_to_use -1]:
+                        if items == active_player.items[item_to_use - 1]:
                             string_item = str(item)
                             item_used = string_item.replace(".name", "")
                             print(item_used)
                     # active_player.item_used(active_player.items[item_to_use -1])
-                    # print(active_player.items)  
+                    # print(active_player.items)
 
                 elif choice_item_use_menu == 2:  # get rid of item: print items and ask to choose an item to get rid of. run method for removing item JoJo
                     print("Which item would you like get rid of?")
@@ -191,8 +205,18 @@ def play_game():
 
                 # We need a location menu! Which two locations will be connected to the current location.
         if main_menu_choice == "3":  # Move to a new location
-            location_choice_list.append(location_keys[curr_location])
-            print_menu(location_choice_list)
+            elevator_only = False
+            for location in elevator_only_locations:
+                if location == curr_location:
+                    elevator_only = True
+            if elevator_only == False:
+                for location in location_keys[curr_location]:
+                    location_choice_list.append(location)
+            print(
+                f"Where would you like to go?\n{print_location_options(location_choice_list)}")
+            location_choice = int(input("Please choose: "))
+            curr_location = location_choice_list[location_choice - 1]
+            print(curr_location)
         if main_menu_choice == "4":
             pass
 
