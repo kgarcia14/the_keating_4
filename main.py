@@ -175,8 +175,11 @@ def play_game():
             if elevator_only == False:
                 for location in location_keys[curr_location]:
                     location_choice_list.append(location)
-            print_location_options(location_choice_list)
-            curr_location = []
+            print(
+                f"Where would you like to go?\n{print_location_options(location_choice_list)}")
+            location_choice = int(input("Please choose: "))
+            curr_location = location_choice_list[location_choice - 1]
+            print(curr_location)
         if main_menu_choice == "4":
             pass
 
