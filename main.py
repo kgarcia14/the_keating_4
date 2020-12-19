@@ -24,9 +24,11 @@ community_center = Location("Community Center", "pass")
 location_keys = {
     josh_room: [liz_office, kitchen],
     liz_office: [josh_room, kitchen],
-    kitchen: [liz_office, josh_room]
+    kitchen: [liz_office, josh_room],
+    elevator: [liz_office, josh_room, kitchen, roof, community_center, gym]
 }
 elevator_only_locations = [roof, community_center, gym]
+
 
 # Items Instantiation
 # Josh's Room
@@ -81,6 +83,7 @@ blankets = Item("Blanket", community_center, -15)
 items_community_center = [arcade_game.name,
                           pillows.name, ping_pong.name, rug.name, blankets.name]
 
+all_items = [monitor, jacket, bag_of_chips, tshirt, book, keyboard, key_card, trash_can, tarp, chair, firepit, sink, bleach, freezer, shower, shower_curtain, weights, security_desk, get_away_car, arcade_game, pillows, ping_pong, rug, blankets]
 
 # Menus
 
@@ -89,17 +92,19 @@ main_menu = ["Search for anything useful", "Look at my items",
 
 item_use_menu = ["Use item", "Get rid of an item", "exit"]
 
+josh_room_menu = ["Look at my items", "Move to a new location", "Attempt to Escape with the body", "Call the Police"]
+
+josh_room_menu_with_code = ["Look at my items", "Move to a new location", "Attempt to Escape with the body", "Call the Police", "***Call Ryan***"]
+
 
 # Functions
 def print_string_menu(menu):
     for idx, choice in enumerate(menu):
         print(f"{idx+1}. {choice}")
 
-
 def print_menu(menu):
     for idx, choice in enumerate(menu):
         print(f"{idx+1}. {choice.name}")
-
 
 def print_location_options(location_options):
     location_name_list = []
@@ -108,12 +113,45 @@ def print_location_options(location_options):
     for idx, choice in enumerate(location_name_list):
         print(f"{idx+1}. {choice}")
 
-
 def which_list(room):
     if room == josh_room:
         return items_josh_room
     if room == gym:
         return items_gym
+
+def main_menu_choice_1(list, player):
+    item_loop = True
+    while item_loop:
+        print_menu(list)
+        if len(player.items) >= 5:
+            full_menu_choice = (input(
+                "You are already holding the maximum number of items. Would you like to remove one? y or n:  "))
+            if full_menu_choice.lower() == "y":
+                print_menu(player.items)
+                full_menu_remove_choice = int(
+                    input("Which item would you like to remove?"))
+                player.items.pop(full_menu_remove_choice - 1)
+            elif full_menu_choice == "n":
+                pass
+            # incorrect responce error catch
+            else:
+                print()
+                pass
+        else:
+            try:
+                item_chosen = int(input("Which item would you like to pick up?\nNote: To exit, press 9.\nPlease choose: "))
+                if item_chosen == 9:
+                    item_loop = False
+                else:
+                    player.add_items(list[item_chosen-1])
+                    list.pop(item_chosen-1)
+                    continue_choosing = input(
+                    "Would you like to choose another item? y or n\n")
+                    if continue_choosing.lower() == "n":
+                        item_loop = False
+            except ValueError:
+                print("Please choose an available menu choice!")
+                
 
 
 def play_game():
@@ -147,48 +185,20 @@ def play_game():
         active_player.print_alert_status()
         main_menu_choice = input("Please choose: ")
         if main_menu_choice == "1":
-            item_loop = True
-            while item_loop:
-                print_menu(curr_items_list)
+            main_menu_choice_1(curr_items_list, active_player)
 
-                if len(active_player.items) >= 5:
-                    full_menu_choice = (input(
-                        "You are already holding the maximum number of items. Would you like to remove one? y or n:  "))
-                    if full_menu_choice.lower() == "y":
-                        print_menu(active_player.items)
-                        full_menu_remove_choice = int(
-                            input("Which item would you like to remove? "))
-                        active_player.items.pop(full_menu_remove_choice - 1)
-                    elif full_menu_choice == "n":
-                        pass
-                    # incorrect responce error catch
-                    else:
-                        print()
-                        pass
-                else:
-                    item_chosen = int(
-                        input("Which item would you like to pick up? "))
-                    active_player.add_items(curr_items_list[item_chosen-1])
-                    curr_items_list.pop(item_chosen-1)
-                    continue_choosing = input(
-                        "Would you like to choose another item? y or n\n")
-                    if continue_choosing.lower() == "n":
-                        item_loop = False
 
         if main_menu_choice == "2":
             print_menu(active_player.items)
             if curr_location == josh_room:
-
-                print_menu(item_use_menu)
+                print_string_menu(item_use_menu)
                 choice_item_use_menu = int(input("Please choose: "))
                 if choice_item_use_menu == 1:
-                    print_string_menu(active_player.items)
-                    item_to_use = int(input("Choose which item to use:"))
-                    for items in curr_items_list:
-                        if items.name == active_player.items[item_to_use - 1]:
-                            item_to_use = items
-                    active_player.item_used(item_to_use)
-                    print(active_player.items)
+                    print_menu(active_player.items)
+                    user_choice = int(input("Choose which item to use:"))
+                    item_being_used = active_player.items[user_choice-1]
+                    active_player.item_used(item_being_used)
+                    
 
                 elif choice_item_use_menu == 2:  # get rid of item: print items and ask to choose an item to get rid of. run method for removing item JoJo
                     print("Which item would you like get rid of?")
