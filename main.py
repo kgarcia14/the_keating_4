@@ -4,11 +4,11 @@ from classes import Character, Location, Item
 
 
 # Character Instantiation
-crystal = Character('Crystal', 40)
-jojo = Character('JoJo', 10)
-kurtis = Character('Kurtis', 30)
-joshua = Character('Joshua', 5)
-annalise = Character('Annalise Keating', 0)
+crystal = Character('Crystal', 40, "Unsuspected")
+jojo = Character('JoJo', 10, "placeholder")
+kurtis = Character('Kurtis', 30, "placeholder")
+joshua = Character('Joshua', 5, "place holder")
+annalise = Character('Annalise Keating', 0, "No mistakes!")
 main_players = [crystal, jojo, kurtis, joshua]
 
 # Location Instantiation
@@ -32,61 +32,63 @@ location_keys = {
 }
 
 
-
 # Items Instantiation
 # Josh's Room
-monitor = Item("monitor", josh_room)
-jacket = Item("jacket", josh_room, 0, -10)
-bag_of_chips = Item("bag of chips", josh_room, 5)
+monitor = Item("monitor", josh_room, "pass", "pass", 10)
+jacket = Item("jacket", josh_room, "shirt", False, -10)
+bag_of_chips = Item("bag of chips", josh_room, "pass", "pass", 5)
 items_josh_room = [monitor, jacket, bag_of_chips]
 
 # Liz's Room
-tshirt = Item("tshirt", liz_office, 0, -10)
+tshirt = Item("t-shirt", liz_office, "shirt", False, -10)
 # input code in book and if you can solve unlocks ryan phone number and he distracts security guard for you
-book = Item("book", liz_office)
-keyboard = Item("keyboard", liz_office, 15)
-items_liz_room = [tshirt, book, keyboard]
+book = Item("book", liz_office, "pass", "pass")
+keyboard = Item("keyboard", liz_office, "pass", "pass", 15)
+items_liz_office = [tshirt, book, keyboard]
 
 # # Elevator
-key_card = Item("Dropped Key Card", elevator)
-trash_can = Item("Trash Can", elevator, 5, -10)
+key_card = Item("Dropped Key Card", elevator, "pass", "pass")
+trash_can = Item("Trash Can", elevator, "pass", "pass", 5, -10)
 items_elevator = [key_card, trash_can]
 
 # # Roof
-tarp = Item("tarp", roof, 5, -15)
-chair = Item("chair", roof, 15)
-firepit = Item("firepit", roof, 5, -20)
+tarp = Item("tarp", roof, "pass", "pass", 5, -15)
+chair = Item("chair", roof, "pass", "pass", 15)
+firepit = Item("firepit", roof, "pass", "pass", 5, -20)
 items_roof = [tarp, chair, firepit]
 
 # Kitchen
-sink = Item("sink", kitchen, -10)
-bleach = Item("bleach", kitchen, -10)
-freezer = Item("freezer", kitchen, 5)
+sink = Item("sink", kitchen, "hands", False,  -10)
+bleach = Item("bleach", kitchen, "hands", False, -10)
+freezer = Item("freezer", kitchen, "pass", "pass", 5)
 items_kitchen = [sink, bleach, freezer]
 
 # # Gym
-shower = Item("shower", gym, -5)
-shower_curtain = Item("shower_curtain", gym, -5)
-weights = Item("weights", gym, +5)
+shower = Item("shower", gym, "hands", False, -5)
+shower_curtain = Item("shower_curtain", gym, "pass", "pass", -5)
+weights = Item("weights", gym, "pass", "pass", 5)
 items_gym = [shower, shower_curtain, weights]
 
 # # Security Desk
-security_desk = Item("security desk", security_desk,)
+security_desk = Item("security desk", security_desk, "pass", "pass")
 items_security_desk = [security_desk]
 
 # Parking Garage
-get_away_car = Item("Brittani in the get away car", parking_garage, -100)
+get_away_car = Item("Brittani in the get away car",
+                    parking_garage, "pass", "pass", -100)
+items_parking_garage = [get_away_car]
 
 # Community Center
-arcade_game = Item("Arcade Game", community_center)
-pillows = Item("Pillow", community_center)
-ping_pong = Item("Ping Pong", community_center, -10)
-rug = Item("Rug", community_center, -10)
-blankets = Item("Blanket", community_center, -15)
+arcade_game = Item("Arcade Game", community_center, "pass", "pass")
+pillows = Item("Pillow", community_center, "pass", "pass")
+ping_pong = Item("Ping Pong", community_center, "pass", "pass", -10)
+rug = Item("Rug", community_center, -10, "pass", "pass")
+blankets = Item("Blanket", community_center, "pass", "pass", -15)
 items_community_center = [arcade_game,
                           pillows, ping_pong, rug, blankets]
 
-all_items = [monitor, jacket, bag_of_chips, tshirt, book, keyboard, key_card, trash_can, tarp, chair, firepit, sink, bleach, freezer, shower, shower_curtain, weights, security_desk, get_away_car, arcade_game, pillows, ping_pong, rug, blankets]
+all_items = [monitor, jacket, bag_of_chips, tshirt, book, keyboard, key_card, trash_can, tarp, chair, firepit, sink, bleach,
+             freezer, shower, shower_curtain, weights, security_desk, get_away_car, arcade_game, pillows, ping_pong, rug, blankets]
 
 # Menus
 
@@ -95,20 +97,44 @@ main_menu = ["Search for anything useful", "Look at my items",
 
 item_use_menu = ["Use item", "Get rid of an item", "exit"]
 
-josh_room_menu = ["Look at my items", "Move to a new location", "Attempt to Escape with the body", "Call the Police"]
+josh_room_menu = ["Look at my items", "Move to a new location",
+                  "Attempt to Escape with the body", "Call the Police"]
 
-josh_room_menu_with_code = ["Look at my items", "Move to a new location", "Attempt to Escape with the body", "Call the Police", "***Call Ryan***"]
+josh_room_menu_with_code = ["Look at my items", "Move to a new location",
+                            "Attempt to Escape with the body", "Call the Police", "***Call Ryan***"]
 
 
 # Functions
+
+def choosing_active_player():
+    print()  # Add in player stats and special characteristics
+    print_menu(main_players)
+    choosing_player = input("Please pick a player: ")
+    if choosing_player == "1":
+        active_player = crystal
+    if choosing_player == "2":
+        active_player = jojo
+    if choosing_player == "3":
+        active_player = kurtis
+    if choosing_player == "4":
+        active_player = joshua
+    if choosing_player == "1000":
+        active_player = annalise
+    print(
+        f'You have selected {active_player.name} with an alert level of {active_player.alert_level}!')
+    return active_player
+
+
 def print_string_menu(menu):
     for idx, choice in enumerate(menu):
         print(f"{idx+1}. {choice}")
+
 
 def print_menu(menu):
     for idx, choice in enumerate(menu):
         # print(type(choice))
         print(f"{idx+1}. {choice.name}")
+
 
 def print_location_options(location_options):
     location_name_list = []
@@ -117,17 +143,35 @@ def print_location_options(location_options):
     for idx, choice in enumerate(location_name_list):
         print(f"{idx+1}. {choice.name}")
 
+
 def which_list(room):
     if room == josh_room:
         return items_josh_room
+    if room == liz_office:
+        return items_liz_office
+    if room == elevator:
+        return items_elevator
+    if room == roof:
+        return items_roof
+    if room == kitchen:
+        return items_kitchen
     if room == gym:
         return items_gym
+    if room == security_desk:
+        return items_security_desk
+    if room == parking_garage:
+        return items_parking_garage
+    if room == community_center:
+        return items_community_center
+
 
 def remove_item_from_inventory(player):
     print_menu(player.items)
-    full_menu_remove_choice = int(input("Which item would you like to remove?"))
+    full_menu_remove_choice = int(
+        input("Which item would you like to remove?"))
     player.items.pop(full_menu_remove_choice - 1)
     print("Your item has been removed")
+
 
 def main_menu_choice_1(list_option, player):
     item_loop = True
@@ -137,7 +181,7 @@ def main_menu_choice_1(list_option, player):
             full_menu_choice = (input(
                 "You are already holding the maximum number of items. Would you like to remove one? y or n:  "))
             if full_menu_choice.lower() == "y":
-                remove_item_from_inventory(active_player)
+                remove_item_from_inventory(player)
             elif full_menu_choice == "n":
                 pass
             # incorrect responce error catch
@@ -146,19 +190,21 @@ def main_menu_choice_1(list_option, player):
                 pass
         else:
             try:
-                item_chosen = int(input("Which item would you like to pick up?\nNote: To exit, press 9.\nPlease choose: "))
+                item_chosen = int(input(
+                    "Which item would you like to pick up?\nNote: To exit, press 9.\nPlease choose: "))
                 if item_chosen == 9:
                     item_loop = False
                 else:
                     player.add_items(list_option[item_chosen-1])
                     list_option.pop(item_chosen-1)
                     continue_choosing = input(
-                    "Would you like to choose another item? y or n\n")
+                        "Would you like to choose another item? y or n\n")
                     if continue_choosing.lower() == "n":
                         item_loop = False
             except ValueError:
                 print("Please choose an available menu choice!")
-                
+
+
 def main_menu_choice_2(location, player, list_option):
     print_menu(player.items)
     if location == josh_room:
@@ -171,6 +217,7 @@ def main_menu_choice_2(location, player, list_option):
             player.item_used(item_being_used)
         elif choice_item_use_menu == 2:  # get rid of item: print items and ask to choose an item to get rid of. run method for removing item JoJo
             remove_item_from_inventory(player)
+
 
 def main_menu_choice_3(location):
     location_list = []
@@ -187,27 +234,14 @@ def main_menu_choice_3(location):
     print(f"\n\n***You are now in the {new_location.name}***")
     return new_location
 
+
 def play_game():
 
     # location_choice_list = [josh_room.name, elevator.name]
     print("Welcome to How To Get Away With Murder")
     # We need some info here about the game....so you know what character you want to choose, must use items in Josh's room!
     print()  # Add in player stats and special characteristics
-    print_menu(main_players)
-    choosing_player = input("Please pick a player: ")
-    if choosing_player == "1":
-        active_player = crystal
-    if choosing_player == "2":
-        active_player = jojo
-    if choosing_player == "3":
-        active_player = kurtis
-    if choosing_player == "4":
-        active_player = joshua
-    if choosing_player == "1000":
-        active_player = annalise
-    print(
-        f'You have selected {active_player.name} with an alert level of {active_player.alert_level}!')
-    # Here we need to set the scene!
+    active_player = choosing_active_player()
     curr_location = josh_room
     play_game = True
     while play_game:
