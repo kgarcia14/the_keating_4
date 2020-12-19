@@ -12,15 +12,15 @@ annalise = Character('Annalise Keating', 0, "No mistakes!")
 main_players = [crystal, jojo, kurtis, joshua]
 
 # Location Instantiation
-josh_room = Location("Sean's hide-out", "pass")
-liz_office = Location("Liz's Office", "pass")
-elevator = Location("Elevator", "pass")
-roof = Location("Roof", "pass")
-kitchen = Location("Kitchen", "pass")
-gym = Location("Gym", "pass")
-security_desk = Location("Security Desk", "pass")
-parking_garage = Location("Parking Garage", "pass")
-community_center = Location("Community Center", "pass")
+josh_room = Location("Sean's hide-out", "Sean's hide-out description")
+liz_office = Location("Liz's Office", "Liz's Office description")
+elevator = Location("Elevator", "elevator description")
+roof = Location("Roof", "roof description")
+kitchen = Location("Kitchen", "kitchen description")
+gym = Location("Gym", "gym description")
+security_desk = Location("Security Desk", "security desk description")
+parking_garage = Location("Parking Garage", "parking garage description")
+community_center = Location("Community Center", "community center description")
 location_keys = {
     josh_room: [liz_office, kitchen, elevator],
     liz_office: [josh_room, kitchen, elevator],
@@ -195,6 +195,7 @@ def main_menu_choice_1(list_option, player):
                     item_loop = False
                 else:
                     player.add_items(list_option[item_chosen-1])
+                    player.print_alert_status()
                     list_option.pop(item_chosen-1)
                     continue_choosing = input(
                         "Would you like to choose another item? y or n\n")
@@ -230,7 +231,6 @@ def main_menu_choice_3(location):
         print_location_options(location_list)
         location_choice = int(input("Please choose: "))
         new_location = location_list[location_choice - 1]
-    print(f"\n\n***You are now in the {new_location.name}***")
     return new_location
 
 
@@ -244,10 +244,10 @@ def play_game():
     curr_location = josh_room
     play_game = True
     while play_game:
+        print(curr_location)
         curr_items_list = which_list(curr_location)
         print("What would you like to do now?")
         print_string_menu(main_menu)
-        print(curr_location.description)
         active_player.print_alert_status()
         main_menu_choice = input("Please choose: ")
         if main_menu_choice == "1":
