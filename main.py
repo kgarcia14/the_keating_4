@@ -120,8 +120,7 @@ def choosing_active_player():
         active_player = joshua
     if choosing_player == "1000":
         active_player = annalise
-    print(
-        f'You have selected {active_player.name} with an alert level of {active_player.alert_level}!')
+    print(active_player)
     return active_player
 
 

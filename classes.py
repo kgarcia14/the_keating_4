@@ -28,6 +28,7 @@ class Character:
 
 # Create method for using items(when items are used they affect alert level => items.alert_effect_used) Kurtis
 
+
     def item_used(self, item):
         self.alert_level += item.alert_effect_used
         if item.on_use == True:
@@ -41,8 +42,7 @@ class Character:
     #     self.item.pop
 
     def __str__(self):
-        blurb = f"You have chosen {self.name}!\nCongrats! {self.name} has a starting alert level of {self.alert_level}.\n Also, surprise! Each character has a hidden special ability. We like to {self.name}'s: {self.ability}"
-        return
+        return f"\n\n****You have chosen {self.name}! Congrats!****\n\n{self.name} has a starting alert level of {self.alert_level}.\n\nAlso, surprise! Each character has a hidden special ability.\nWe like to call {self.name}'s:\n****{self.ability}****\n\n"
 
 
 class Location:
