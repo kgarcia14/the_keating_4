@@ -1,4 +1,7 @@
 from classes import Character, Location, Item
+from subprocess import call
+import os
+
 
 # this is our main program
 
@@ -34,7 +37,7 @@ location_keys = {
 
 # Items Instantiation
 # Josh's Room
-monitor = Item("monitor", josh_room, "pass", "pass", 10)
+monitor = Item("monitor", josh_room, "pass", False, 10)
 jacket = Item("jacket", josh_room, "shirt", False, -10)
 bag_of_chips = Item("bag of chips", josh_room, "pass", "pass", 5)
 items_josh_room = [monitor, jacket, bag_of_chips]
@@ -48,13 +51,13 @@ items_liz_office = [tshirt, book, keyboard]
 
 # # Elevator
 key_card = Item("Dropped Key Card", elevator, "pass", "pass")
-trash_can = Item("Trash Can", elevator, "pass", "pass", 5, -10)
+trash_can = Item("Trash Can", elevator, "pass", "pass", 0, -10)
 items_elevator = [key_card, trash_can]
 
 # # Roof
-tarp = Item("tarp", roof, "pass", "pass", 5, -15)
+tarp = Item("tarp", roof, "pass", "pass", 0, -15)
 chair = Item("chair", roof, "pass", "pass", 15)
-firepit = Item("firepit", roof, "pass", "pass", 5, -20)
+firepit = Item("firepit", roof, "pass", "pass", 0, -20)
 items_roof = [tarp, chair, firepit]
 
 # Kitchen
@@ -194,7 +197,9 @@ def main_menu_choice_1(list_option, player):
                 if item_chosen == 9:
                     item_loop = False
                 else:
-                    player.add_items(list_option[item_chosen-1])
+                    choice_item = list_option[item_chosen-1]
+                    player.add_items(choice_item)
+                    print(choice_item)
                     player.print_alert_status()
                     list_option.pop(item_chosen-1)
                     continue_choosing = input(
@@ -206,7 +211,10 @@ def main_menu_choice_1(list_option, player):
 
 
 def main_menu_choice_2(location, player, list_option):
-    print_menu(player.items)
+    if len(player.items) > 0:
+        print_menu(player.items)
+    else:
+        print("You have no items in your inventory.")
     if location == josh_room:
         print_string_menu(list_option)
         choice_item_use_menu = int(input("Please choose: "))
@@ -235,7 +243,7 @@ def main_menu_choice_3(location):
 
 
 def play_game():
-
+    call('clear' if os.name == 'posix' else 'cls')
     # location_choice_list = [josh_room.name, elevator.name]
     print("Welcome to How To Get Away With Murder")
     # We need some info here about the game....so you know what character you want to choose, must use items in Josh's room!
@@ -244,20 +252,25 @@ def play_game():
     curr_location = josh_room
     play_game = True
     while play_game:
+        call('clear' if os.name == 'posix' else 'cls')
         print(curr_location)
         curr_items_list = which_list(curr_location)
-        print("What would you like to do now?")
-        print_string_menu(main_menu)
-        active_player.print_alert_status()
-        main_menu_choice = input("Please choose: ")
-        if main_menu_choice == "1":
-            main_menu_choice_1(curr_items_list, active_player)
-        if main_menu_choice == "2":
-            main_menu_choice_2(curr_location, active_player, item_use_menu)
-        if main_menu_choice == "3":  # Move to a new location
-            curr_location = main_menu_choice_3(curr_location)
-        if main_menu_choice == "4":
-            play_game = False
+        same_location = True
+        while same_location:
+            active_player.print_alert_status()
+            print("What would you like to do now?")
+            print_string_menu(main_menu)
+            main_menu_choice = input("Please choose: ")
+            if main_menu_choice == "1":
+                main_menu_choice_1(curr_items_list, active_player)
+            if main_menu_choice == "2":
+                main_menu_choice_2(curr_location, active_player, item_use_menu)
+            if main_menu_choice == "3":  # Move to a new location
+                curr_location = main_menu_choice_3(curr_location)
+                same_location = False
+            if main_menu_choice == "4":
+                play_game = False
+            call('clear' if os.name == 'posix' else 'cls')
 
 
 play_game()
