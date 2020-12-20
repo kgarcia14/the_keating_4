@@ -13,7 +13,7 @@ class Character:
         self.alert_level += location.item[item_idx]
 
     def print_alert_status(self):
-        print(f"\n***Your alert level is now: {self.alert_level}!***\n")
+        print(f"\n***Your alert level is now: {self.alert_level}***\n")
 
     # item limit within list: cap number of items and allow user to get rid of an item
     def add_items(self, item):
@@ -41,7 +41,7 @@ class Character:
     #     self.item.pop
 
     def __str__(self):
-        return f"\n\n****You have chosen {self.name}! Congrats!****\n\n{self.name} has a starting alert level of {self.alert_level}.\n\nAlso, surprise! Each character has a hidden special ability.\nWe like to call {self.name}'s:\n****{self.ability}****"
+        return f"****You have chosen {self.name}! Congrats!****\n\n{self.name} has a starting alert level of {self.alert_level}.\n\nAlso, surprise! Each character has a hidden special ability.\nWe like to call {self.name}'s:\n****{self.ability}****"
 
 
 class Location:
@@ -50,7 +50,7 @@ class Location:
         self.description = description
 
     def __str__(self):
-        return f"\n\nYou are in the {self.name}!\n{self.description}\n\n"
+        return f"You are in the {self.name}!\n{self.description}\n\n"
 
 
 class Item:
@@ -61,3 +61,12 @@ class Item:
         self.on_use = on_use
         self.alert_effect_pu = alert_effect_pu
         self.alert_effect_used = alert_effect_used
+
+    def __str__(self):
+        if self.on_use:
+            time_of_use = "when used"
+            level = self.alert_effect_used
+        else:
+            time_of_use = "when picked up"
+            level = self.alert_effect_pu
+        return f"\nYou have chosen the {self.name}.\nThis item effects your alert level when {time_of_use}.\nIt has a {level} point effect on your alert level {time_of_use}."
