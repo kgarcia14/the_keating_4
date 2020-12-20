@@ -211,7 +211,10 @@ def main_menu_choice_1(list_option, player):
 
 
 def main_menu_choice_2(location, player, list_option):
-    print_menu(player.items)
+    if len(player.items) > 0:
+        print_menu(player.items)
+    else:
+        print("You have no items in your inventory.")
     if location == josh_room:
         print_string_menu(list_option)
         choice_item_use_menu = int(input("Please choose: "))
@@ -254,9 +257,9 @@ def play_game():
         curr_items_list = which_list(curr_location)
         same_location = True
         while same_location:
+            active_player.print_alert_status()
             print("What would you like to do now?")
             print_string_menu(main_menu)
-            active_player.print_alert_status()
             main_menu_choice = input("Please choose: ")
             if main_menu_choice == "1":
                 main_menu_choice_1(curr_items_list, active_player)

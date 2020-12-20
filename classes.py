@@ -13,7 +13,7 @@ class Character:
         self.alert_level += location.item[item_idx]
 
     def print_alert_status(self):
-        print(f"\n***Your alert level is now: {self.alert_level}***\n")
+        print(f"\n***Your alert level is: {self.alert_level}***\n")
 
     # item limit within list: cap number of items and allow user to get rid of an item
     def add_items(self, item):
@@ -66,7 +66,9 @@ class Item:
         if self.on_use:
             time_of_use = "when used"
             level = self.alert_effect_used
+            in_inventory = "will"
         else:
             time_of_use = "when picked up"
             level = self.alert_effect_pu
-        return f"\nYou have chosen the {self.name}.\nThis item effects your alert level when {time_of_use}.\nIt has a {level} point effect on your alert level {time_of_use}."
+            in_inventory = "will not"
+        return f"\nYou have chosen the {self.name}.\nThis item effects your alert level when {time_of_use}.\nIt has a {level} point effect on your alert level {time_of_use}.\nThis item {in_inventory} be in your inventory."
