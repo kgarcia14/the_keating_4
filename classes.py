@@ -9,9 +9,6 @@ class Character:
         self.shirt = ["shirt", True]
         self.parts = [self.hands, self.shirt]
 
-    def change_alert(self, location, item_idx):
-        self.alert_level += location.item[item_idx]
-
     def print_alert_status(self):
         print(f"\n***Your alert level is: {self.alert_level}***\n")
 
@@ -24,17 +21,32 @@ class Character:
         else:
             self.items.append(item)
         self.alert_level += item.alert_effect_pu
+        play_game = self.alert_level_change(item)
+        return play_game
+
+    def alert_level_change(self, item):
+        play_game = True
+        if self.alert_level > 80:
+            print("Your alert level is getting high! Be careful!")
+        if self.alert_level > 100:
+            self.alert_level = 100
+        elif self.alert_level < 0:
+            play_game = False
+        else:    
+            return play_game
 
 
 # Create method for using items(when items are used they affect alert level => items.alert_effect_used) Kurtis
 
     def item_used(self, item):
         self.alert_level += item.alert_effect_used
+        play_game = self.alert_level_change(item)
         if item.on_use == True:
             for part in self.parts:
                 if item.character_part == part[0]:
                     part[1] = False
         self.items.remove(item)
+        return play_game
 
         # Create method for removing items(when the character wants to remove the items they get removed from the list)JoJo
     # def remove_items(self, item):
