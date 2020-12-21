@@ -1,3 +1,7 @@
+from subprocess import call
+import os
+import time
+
 
 class Character:
     def __init__(self, name, alert_level, ability):
@@ -47,6 +51,126 @@ class Character:
                     part[1] = False
         self.items.remove(item)
         return play_game
+
+    def losing_statement(self):
+        print(f"Oh no, {self.name}! Your alert level was too high and they are suspicious! They are coming!!!\n\nYou have been caught! Better luck next time. You should find Ryan....")
+
+    def walking_the_hallway(self):
+        call('clear' if os.name == 'posix' else 'cls')
+        print("You are trying to escape! Good luck.\nRememeber, if your alert level is too high, you will get caught!\nIt's time to sneak down to the lobby. You gather up the body and head down the hall. Hopefully, no one catches you!")
+        time.sleep(5)
+        print("*----")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print("You are trying to escape! Good luck.\nRememeber, if your alert level is too high, you will get caught!\nIt's time to sneak down to the lobby. You gather up the body and head down the hall. Hopefully, no one catches you!")
+        print("**---")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print("You are trying to escape! Good luck.\nRememeber, if your alert level is too high, you will get caught!\nIt's time to sneak down to the lobby. You gather up the body and head down the hall. Hopefully, no one catches you!")
+        print("***--")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print("You are trying to escape! Good luck.\nRememeber, if your alert level is too high, you will get caught!\nIt's time to sneak down to the lobby. You gather up the body and head down the hall. Hopefully, no one catches you!")
+        print("****-")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print("You are trying to escape! Good luck.\nRememeber, if your alert level is too high, you will get caught!\nIt's time to sneak down to the lobby. You gather up the body and head down the hall. Hopefully, no one catches you!")
+        print("*****")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+
+    def elevator_going_down(self):
+        call('clear' if os.name == 'posix' else 'cls')
+        print('''
+        | * |
+        |   |
+        |   |
+        |   |
+        |   |
+        ''')
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print('''
+        |   |
+        | * |
+        |   |
+        |   |
+        |   |
+        ''')
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print('''
+        |   |
+        |   |
+        | * |
+        |   |
+        |   |
+        ''')
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print('''
+        |   |
+        |   |
+        |   |
+        | * |
+        |   |
+        ''')
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print('''
+        |   |
+        |   |
+        |   |
+        |   |
+        | * |
+        ''')
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+
+    def sneak_past_security(self):
+        call('clear' if os.name == 'posix' else 'cls')
+        print("*----")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print("-*---")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print("--*--")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print("---*-")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print("----*")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+
+    def casual_past_security(self):
+        call('clear' if os.name == 'posix' else 'cls')
+        print("|----")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print("-|---")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print("--|--")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print("---|-")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+        print("----|")
+        time.sleep(1)
+        call('clear' if os.name == 'posix' else 'cls')
+
+    def garage_scene(self):
+        print("You made it to the garage! You did it! But is Brittani waiting for you?")
+        time.sleep(3)
+        if self.alert_level < 55:
+            print("She's driving the getaway car! You made it!")#<<<<----Create a great win statement!
+        else:
+            print("It looks like you were too big of a risk! She isn't coming. Good luck running with a body....\n")
+            self.losing_statement()
 
         # Create method for removing items(when the character wants to remove the items they get removed from the list)JoJo
     # def remove_items(self, item):
