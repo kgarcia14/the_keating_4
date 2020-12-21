@@ -286,6 +286,7 @@ def play_game():
             if main_menu_choice == "4":
                 play_game = False
             call('clear' if os.name == 'posix' else 'cls')
+        print("You lose!") #Create a better lose statement!
 
 
 play_game()

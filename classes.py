@@ -28,9 +28,9 @@ class Character:
         play_game = True
         if self.alert_level > 80:
             print("Your alert level is getting high! Be careful!")
-        if self.alert_level > 100:
-            self.alert_level = 100
-        elif self.alert_level < 0:
+        if self.alert_level < 0:
+            self.alert_level = 0
+        elif self.alert_level > 100:
             play_game = False
         else:    
             return play_game
