@@ -2,8 +2,7 @@ from classes import Character, Location, Item
 from subprocess import call
 import os
 import time
-
-
+os.system('cls' if os.name == 'nt' else 'clear')
 # Liz's Room
 #print("You are in Liz Carley room. Take a\n look around, but don't take\n too long, it will look suspicious if she\n catches you.")
 
@@ -126,7 +125,7 @@ items_parking_garage = [get_away_car]
 arcade_game = Item("Arcade Game", community_center, "pass", "pass")
 pillows = Item("Pillow", community_center, "pass", False, 10)
 ping_pong = Item("Ping Pong", community_center, "pass", False, 5)
-rug = Item("Rug", community_center, -10, "pass", "pass", 0, -5)
+rug = Item("Rug", community_center, "pass", "pass", 0, -5)
 blankets = Item("Blanket", community_center, "pass", "pass", 0, -15)
 items_community_center = [arcade_game,
                           pillows, ping_pong, rug, blankets]
@@ -293,7 +292,7 @@ def main_menu_choice_3(location):
     return new_location
 
 def main_menu_choice_5(location, player):
-    call('clear' if os.name == 'posix' else 'cls')
+    os.system('cls||clear')
     print("You are trying to escape! Good luck.\nRememeber, if your alert level is too high, you will get caught!\nIt's time to sneak down to the lobby. You gather up the body and head down the hall. Hopefully, no one catches you!\n*-----")
     player.walking_the_hallway()
     if player.alert_level < 90:
@@ -320,7 +319,7 @@ def main_menu_choice_5(location, player):
     return False
 
 def play_game():
-    call('clear' if os.name == 'posix' else 'cls')
+    os.system('cls||clear')
     # location_choice_list = [josh_room.name, elevator.name]
     print("Welcome to How To Get Away With Murder")
     # We need some info here about the game....so you know what character you want to choose, must use items in Josh's room!
@@ -331,7 +330,7 @@ def play_game():
     play_game = True
     time.sleep(5)
     while play_game:
-        call('clear' if os.name == 'posix' else 'cls')
+        os.system('cls||clear')
         print(curr_location)
         curr_items_list = which_list(curr_location)
         same_location = True
