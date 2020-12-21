@@ -49,7 +49,7 @@ os.system('cls' if os.name == 'nt' else 'clear')
 # Character Instantiation
 crystal = Character('Crystal', 40, "Crystal starts with alert level of 40. Resourceful. Power: She can move to any room without the elevator.")
 jojo = Character('JoJo', 10, "Jojo starts with alert level of 10. Sneaky. Power: She can carry 1 extra item.")
-kurtis = Character('Kurtis', 30, "Kurtis starts with alert level of 30. Detail oriented. Power: After #, his alert level penalty is decreased by half points.")
+kurtis = Character('Kurtis', 30, "Kurtis starts with alert level of 30. Detail oriented. Power: After 80, his alert level penalty is decreased by half points.")
 joshua = Character('Joshua', 5, "Joshua starts with alert level of 5. Obsessive compulsive. Power: Doesn't leave a mess")
 annalise = Character('Annalise Keating', 0, "No mistakes!")
 main_players = [crystal, jojo, kurtis, joshua]
@@ -267,8 +267,13 @@ def main_menu_choice_1(list_option, player):
                     list_option.pop(item_chosen-1)
                     continue_choosing = input(
                         "Would you like to choose another item? y or n\n")
-                    if continue_choosing.lower() == "n":
+                    if continue_choosing.lower() == "y":
+                        pass
+                    elif continue_choosing.lower() == "n":
+                        os.system('cls||clear')
                         item_loop = False
+                    else:
+                        print("That isn't an option. Please choose 'y' or 'n': ")
             except ValueError:
                 print("Please choose an available menu choice!")
     return play_game
@@ -288,11 +293,18 @@ def main_menu_choice_2(location, player, list_option):
                 choice_item_use_menu = int(input("Please choose: "))
                 if choice_item_use_menu == 1:
                     print_menu(player.items)
-                    user_choice = int(input("Choose which item to use:")) #NEED ANOTHER ERROR STATEMENT...
-                    item_being_used = player.items[user_choice-1]
-                    play_game = player.item_used(item_being_used)
-                    return play_game
-                if choice_item_use_menu == 2:  # get rid of item: print items and ask to choose an item to get rid of. run method for removing item JoJo
+                    while True:
+                        try:
+                            user_choice = int(input("Choose which item to use:")) 
+                            if user_choice <= len(player.items):
+                                item_being_used = player.items[user_choice-1]
+                                play_game = player.item_used(item_being_used)
+                                return play_game
+                            else:
+                                print("That is not a valid choice! Try again.")
+                        except ValueError:
+                            print("That is not an option. Please try again.")
+                if choice_item_use_menu == 2:
                     remove_item_from_inventory(player)
                     break
                 if choice_item_use_menu == 3:
@@ -300,7 +312,7 @@ def main_menu_choice_2(location, player, list_option):
                 else:
                     print("Please choose an available menu choice")
             except ValueError:
-                print("Please choose an available menu choice!")
+                print("Please choose an available menu choice")
     return play_game
 
 
@@ -314,80 +326,121 @@ def main_menu_choice_3(location):
             location_list.append(location)
         print("Where would you like to go?")
         print_location_options(location_list)
-        location_choice = int(input("Please choose: "))
-        new_location = location_list[location_choice - 1]
+        while True:
+            try:
+                location_choice = int(input("Please choose: "))
+                if location_choice <= len(location_list):
+                    new_location = location_list[location_choice - 1]
+                    break
+                else:
+                    print("That is not a valid choice. Please try again.")
+            except ValueError:
+                print("That is not a valid choice. Please try again.")
     return new_location
 
 def main_menu_choice_5(location, player):
     os.system('cls||clear')
     print("You are trying to escape! Good luck.\nRememeber, if your alert level is too high, you will get caught!\nIt's time to sneak down to the lobby. You gather up the body and head down the hall. Hopefully, no one catches you!\n*-----")
     player.walking_the_hallway()
-    if player.alert_level < 90:
-        escape_input = int(input("You made it to the elevator! Please press 1 to go down to the garage.\nHopefully, no one joins you in the elevator!"))
-        if player.alert_level < 80 and escape_input == 1:
-            player.elevator_going_down()
-            escape_input = int(input("You made it to the garage level without getting caught! Now you must sneak past the security guard! Good luck! Press 1 to sneak and 2 to act casual."))
-            if player.alert_level < 70 and escape_input == 1:
-                player.sneak_past_security()
-                player.garage_scene()
-                return False
-            elif player.alert_level < 60 and escape_input == 2:
-                player.casual_past_security()
-                player.garage_scene()
-                return False
+    if player.alert_level < 90 and player.hands[1] == False and player.shirt[1] == False:
+        while True:
+            escape_input = input("You made it to the elevator! Please press 1 to go down to the garage.\nHopefully, no one joins you in the elevator!")
+            if player.alert_level < 75 and escape_input == "1":
+                player.elevator_going_down()
+                print("You made it to the garage level without getting caught! Now you must sneak past the security guard! Good luck!")
+                while True:
+                    try:
+                        escape_input = int(input("Press 1 to sneak and 2 to act casual."))
+                        if escape_input > 2:
+                            print("That isn't a choice! Choose a valid option quickly so you can escape!!!")
+                        elif player.alert_level < 60 and escape_input == 1:
+                            player.sneak_past_security()
+                            player.garage_scene()
+                            return False
+                        elif player.alert_level < 50 and escape_input == 2:
+                            player.casual_past_security()
+                            player.garage_scene()
+                            return False
+                        else:
+                            player.losing_statement()
+                            return False
+                    except ValueError:
+                        print("C'mon! Pick an option! You are running out of time!")
+            elif player.alert_level < 75:
+                print("That isn't an option! Not when you have a body to move.\nYou need to choose the first floor quickly before someone jumps on the elevator with you!")
             else:
                 player.losing_statement()
                 return False
-        else:
-            player.losing_statement()
-            return False
     else:
         player.losing_statement()
     return False
 
 def play_game():
-    os.system('cls||clear')
-    # location_choice_list = [josh_room.name, elevator.name]
-    print("Welcome to How To Get Away With Murder")
-    # We need some info here about the game....so you know what character you want to choose, must use items in Josh's room!
-    print()  # Add in player stats and special characteristics
-    active_player = choosing_active_player()
-    curr_location = josh_room
-    code_unlocked = False
-    play_game = True
-    time.sleep(5)
-    while play_game:
+    continue_playing = True
+    while continue_playing:
         os.system('cls||clear')
-        print(curr_location)
-        curr_items_list = which_list(curr_location)
-        same_location = True
-        while same_location:
-            active_player.alert_banner()
-            #active_player.print_alert_status()
-            print("What would you like to do now?")
-            elevator_only = False
-            if len(location_keys[curr_location]) == 1 and location_keys[curr_location][0] == elevator:
-                elevator_only = True
-                print_string_menu(elevator_only_menu)
-            elif curr_location == josh_room:
-                print_string_menu(josh_room_menu)
-            elif code_unlocked == True:
-                print_string_menu(josh_room_menu_with_code)
-            else:
-                print_string_menu(main_menu)
-            main_menu_choice = input("Please choose: ")
-            if main_menu_choice == "1":
-                play_game = main_menu_choice_1(curr_items_list, active_player)
-            if main_menu_choice == "2":
-                play_game = main_menu_choice_2(curr_location, active_player, item_use_menu)
-            if main_menu_choice == "3":  # Move to a new location
-                curr_location = main_menu_choice_3(curr_location)
-                same_location = False
-            if main_menu_choice == "4":
-                play_game = False
-            if main_menu_choice == "5":
-                play_game = main_menu_choice_5(curr_location, active_player)
-                same_location = False
+        print()# Here we can have a graphic for our game...
+        # We need some info here about the game....so you know what character you want to choose, must use items in Josh's room!
+        print('''
+*****Player Characteristics******
+Crystal starts with alert level of 40. Resourceful. Power: She can move to any room without the elevator.
+
+Jojo starts with alert level of 10. Sneaky. Power: She can carry 1 extra item.
+
+Kurtis starts with alert level of 30. Detail oriented. Power: After 80, his alert level penalty is decreased by half points.
+
+Joshua starts with alert level of 5. Obsessive compulsive. Power: Doesn't leave a mess
+        ''')  # Add in player stats and special characteristics
+        active_player = choosing_active_player()
+        welcome_message = f"Welcome to 'How To Get Away With MURDER!'\n\n{active_player.name} has just woke up in a small room \nin the Atlanta Tech Village with a dead body on the \nfloor, bloody clothes and hands with all evidence pointing \nto them.Looking around, it doesn't look like anyone \nhas noticed yet.{active_player.name} has dreams of being a top notch \nprogrammer and know that noone will believe they weren't \nthe murderer, in fact {active_player.name} isn't even sure they \ndidn't do it.Help {active_player.name} get away with this \nmurder so one day their programming dreams can be achieved. \nNavigate through the school and gather items that will help \nescape pas the guard with the body to make it to the parking lot. \nBut beware -- everything you find will not be helpful and dont leave too much evidence around or you may be discovered. \nOnce you feel your you won't attract too much attention(alert level), try \nto sneak past the security desk and out the door. GOOD LUCK! \nTIPS: \nYou must bring picked up items back to the murder room to use them. \nCarrying too many items at once will raise your alert level."
+        print(welcome_message)
+        curr_location = josh_room
+        code_unlocked = False
+        play_game = True
+        hands = "dirty"
+        shirt = "dirty"
+        continue_on = input("Press enter to continue: ")
+        while play_game:
+            os.system('cls||clear')
+            print(curr_location)
+            curr_items_list = which_list(curr_location)
+            same_location = True
+            while same_location:
+                active_player.alert_banner()
+                #active_player.print_alert_status()
+                print("What would you like to do now?")
+                elevator_only = False
+                if len(location_keys[curr_location]) == 1 and location_keys[curr_location][0] == elevator:
+                    elevator_only = True
+                    print_string_menu(elevator_only_menu)
+                elif curr_location == josh_room:
+                    print_string_menu(josh_room_menu)
+                elif code_unlocked == True:
+                    print_string_menu(josh_room_menu_with_code)
+                else:
+                    print_string_menu(main_menu)
+                main_menu_choice = input("Please choose: ")
+                if main_menu_choice == "1":
+                    play_game = main_menu_choice_1(curr_items_list, active_player)
+                if main_menu_choice == "2":
+                    play_game = main_menu_choice_2(curr_location, active_player, item_use_menu)
+                if main_menu_choice == "3":  # Move to a new location
+                    curr_location = main_menu_choice_3(curr_location)
+                    same_location = False
+                if main_menu_choice == "4":
+                    play_game = False
+                if main_menu_choice == "5":
+                    play_game = main_menu_choice_5(curr_location, active_player)
+                    same_location = False
+                else:
+                    print("That is not a good idea, let's choose a valid option this time, silly!")
+        play_again = input("Would you like to play again? 'y' or 'n': ")
+        if play_again.lower() == 'y':
+            continue_playing = True
+        elif play_again.lower() == 'n':
+            continue_playing = False
+        else:
+            print("That isn't a choice! Please choose a valid option.")
 
 
 
