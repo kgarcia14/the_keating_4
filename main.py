@@ -4,6 +4,45 @@ import os
 import time
 
 
+# Liz's Room
+#print("You are in Liz Carley room. Take a\n look around, but don't take\n too long, it will look suspicious if she\n catches you.")
+
+
+# # Elevator
+#print("You are in the elevator. This gives you access to anywhere in the building")
+
+# # Roof
+# print("You are on the roof.\n Its a stormy evening and walking around dripping\n water might draw a few eyes.\n Better hurry and gather supplies")
+
+# Kitchen
+#print("You are in the kitchen.\n This is the busiest room in the building.\n You should do what you need to do quickly.")
+
+# # Gym
+#print("You are in the gym.\n Its pretty hot in here. Sweating might\n not be the best idea today, I wouldnt\n take too long in here")
+
+# Parking Garage
+#print("CONGRATULATIONS\n\n The body is in the car are you got away with MURDER\n\n now what????????")
+
+# Community Center
+#print("You are in the community center.\n Its a lot of cameras in here!")
+
+        # We need some info here about the game....so you know what character you want to choose, must use items in Josh's room!
+        #'''
+        #Please choose a player
+        #Crystal starts with alert level of 40. Resourceful. Power: She can move to any room without the elevator.
+        #Jojo starts with alert level of 10. Sneaky. Power: She can carry 1 extra item.
+        #Kurtis starts with alert level of 30. Detail oriented. Power: After #, his alert level penalty is decreased by half points.
+        #Joshua starts with alert level of 5. Obsessive compulsive. Power: Doesn't need a mess
+        #'''
+        # Here we need to set the scene!
+        #first time instructions count 
+        #print("Welcome to 'How To Get Away With MURDER!'\n #active_player.name has just woke up in a small room\n in the Atlanta Tech Village with a dead body\n on the floor #(keeping vague)with all evidence pointing to them.\n Looking around, it doesn't look like anyone has\n noticed yet.active_player.name has dreams of being a top notch programmer\n and know that noone will believe they\n weren't the murderer, in fact\n active_player.name isn't even sure they didn't do it.\n Help active_player.name get away with this murder\n so one day their programming dreams can be achieved.\n Navigate through the school and gather items\n that will help escape pass the guard\n with the body to\n make it to the parking lot.\n But beware -- everything you \n find will not be helpful and dont leave \n too much evidence around or you\n may be discovered. Once you feel\n your you won't attract too much attention(alert level), try\n to sneak past the security desk and out the\n door. GOOD LUCK!\n\n\nTIPS:\n You must bring picked up items back to the murder room to use\nCarrying to many items at once will raise your alert level  ")
+        #description 
+        #print("You are in your first room, the 'MURDER ROOM'")
+
+
+
+
 
 # this is our main program
 
