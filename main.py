@@ -98,6 +98,9 @@ all_items = [monitor, jacket, bag_of_chips, tshirt, book, keyboard, key_card, tr
 main_menu = ["Search for anything useful", "Look at my items",
              "Move to a new location", "Call the Police"]
 
+elevator_only_menu = ["Search for anything useful", "Look at my items",
+             "Go to the Elevator", "Call the Police"]
+
 item_use_menu = ["Use item", "Get rid of an item", "exit"]
 
 josh_room_menu = ["Look at my items", "Move to a new location",
@@ -177,6 +180,7 @@ def remove_item_from_inventory(player):
 
 def main_menu_choice_1(list_option, player):
     item_loop = True
+    play_game = True
     while item_loop:
         print_menu(list_option)
         if len(player.items) >= 5:
@@ -198,7 +202,7 @@ def main_menu_choice_1(list_option, player):
                     item_loop = False
                 else:
                     choice_item = list_option[item_chosen-1]
-                    player.add_items(choice_item)
+                    play_game = player.add_items(choice_item)
                     print(choice_item)
                     player.print_alert_status()
                     list_option.pop(item_chosen-1)
@@ -208,13 +212,16 @@ def main_menu_choice_1(list_option, player):
                         item_loop = False
             except ValueError:
                 print("Please choose an available menu choice!")
+    return play_game
 
 
 def main_menu_choice_2(location, player, list_option):
+    play_game = True
     if len(player.items) > 0:
         print_menu(player.items)
     else:
         print("You have no items in your inventory.")
+        return play_game
     if location == josh_room:
         print_string_menu(list_option)
         choice_item_use_menu = int(input("Please choose: "))
@@ -222,9 +229,12 @@ def main_menu_choice_2(location, player, list_option):
             print_menu(player.items)
             user_choice = int(input("Choose which item to use:"))
             item_being_used = player.items[user_choice-1]
-            player.item_used(item_being_used)
-        elif choice_item_use_menu == 2:  # get rid of item: print items and ask to choose an item to get rid of. run method for removing item JoJo
+            play_game = player.item_used(item_being_used)
+            return play_game
+        if choice_item_use_menu == 2:  # get rid of item: print items and ask to choose an item to get rid of. run method for removing item JoJo
             remove_item_from_inventory(player)
+        if choice_item_use_menu == 3:
+            return play_game
 
 
 def main_menu_choice_3(location):
@@ -252,25 +262,31 @@ def play_game():
     curr_location = josh_room
     play_game = True
     while play_game:
-        call('clear' if os.name == 'posix' else 'cls')
+        # call('clear' if os.name == 'posix' else 'cls')
         print(curr_location)
         curr_items_list = which_list(curr_location)
         same_location = True
         while same_location:
             active_player.print_alert_status()
             print("What would you like to do now?")
-            print_string_menu(main_menu)
+            elevator_only = False
+            if len(location_keys[curr_location]) == 1 and location_keys[curr_location][0] == elevator:
+                elevator_only = True
+                print_string_menu(elevator_only_menu)
+            else:
+                print_string_menu(main_menu)
             main_menu_choice = input("Please choose: ")
             if main_menu_choice == "1":
-                main_menu_choice_1(curr_items_list, active_player)
+                play_game = main_menu_choice_1(curr_items_list, active_player)
             if main_menu_choice == "2":
-                main_menu_choice_2(curr_location, active_player, item_use_menu)
+                play_game = main_menu_choice_2(curr_location, active_player, item_use_menu)
             if main_menu_choice == "3":  # Move to a new location
                 curr_location = main_menu_choice_3(curr_location)
                 same_location = False
             if main_menu_choice == "4":
                 play_game = False
             call('clear' if os.name == 'posix' else 'cls')
+        print("You lose!") #Create a better lose statement!
 
 
 play_game()
