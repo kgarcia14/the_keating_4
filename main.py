@@ -31,11 +31,11 @@ os.system('cls' if os.name == 'nt' else 'clear')
         #Crystal starts with alert level of 40. Resourceful. Power: She can move to any room without the elevator.
         #Jojo starts with alert level of 10. Sneaky. Power: She can carry 1 extra item.
         #Kurtis starts with alert level of 30. Detail oriented. Power: After #, his alert level penalty is decreased by half points.
-        #Joshua starts with alert level of 5. Obsessive compulsive. Power: Doesn't need a mess
+        #Joshua starts with alert level of 5. Obsessive compulsive. Power: Doesn't leave a mess
         #'''
         # Here we need to set the scene!
         #first time instructions count 
-        #print("Welcome to 'How To Get Away With MURDER!'\n #active_player.name has just woke up in a small room\n in the Atlanta Tech Village with a dead body\n on the floor #(keeping vague)with all evidence pointing to them.\n Looking around, it doesn't look like anyone has\n noticed yet.active_player.name has dreams of being a top notch programmer\n and know that noone will believe they\n weren't the murderer, in fact\n active_player.name isn't even sure they didn't do it.\n Help active_player.name get away with this murder\n so one day their programming dreams can be achieved.\n Navigate through the school and gather items\n that will help escape pass the guard\n with the body to\n make it to the parking lot.\n But beware -- everything you \n find will not be helpful and dont leave \n too much evidence around or you\n may be discovered. Once you feel\n your you won't attract too much attention(alert level), try\n to sneak past the security desk and out the\n door. GOOD LUCK!\n\n\nTIPS:\n You must bring picked up items back to the murder room to use\nCarrying to many items at once will raise your alert level  ")
+        #print("Welcome to 'How To Get Away With MURDER!'\n #active_player.name has just woke up in a small room\n in the Atlanta Tech Village with a dead body\n on the floor #(keeping vague)with all evidence pointing to them.\n Looking around, it doesn't look like anyone has\n noticed yet.active_player.name has dreams of being a top notch programmer\n and know that noone will believe they\n weren't the murderer, in fact\n active_player.name isn't even sure they didn't do it.\n Help active_player.name get away with this murder\n so one day their programming dreams can be achieved.\n Navigate through the school and gather items\n that will help escape pas the guard\n with the body to\n make it to the parking lot.\n But beware -- everything you \n find will not be helpful and dont leave \n too much evidence around or you\n may be discovered. Once you feel\n your you won't attract too much attention(alert level), try\n to sneak past the security desk and out the\n door. GOOD LUCK!\n\n\nTIPS:\n You must bring picked up items back to the murder room to use\nCarrying to many items at once will raise your alert level  ")
         #description 
         #print("You are in your first room, the 'MURDER ROOM'")
 
@@ -47,23 +47,23 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 
 # Character Instantiation
-crystal = Character('Crystal', 40, "Unsuspected")
-jojo = Character('JoJo', 10, "placeholder")
-kurtis = Character('Kurtis', 30, "placeholder")
-joshua = Character('Joshua', 5, "place holder")
+crystal = Character('Crystal', 40, "Crystal starts with alert level of 40. Resourceful. Power: She can move to any room without the elevator.")
+jojo = Character('JoJo', 10, "Jojo starts with alert level of 10. Sneaky. Power: She can carry 1 extra item.")
+kurtis = Character('Kurtis', 30, "Kurtis starts with alert level of 30. Detail oriented. Power: After #, his alert level penalty is decreased by half points.")
+joshua = Character('Joshua', 5, "Joshua starts with alert level of 5. Obsessive compulsive. Power: Doesn't leave a mess")
 annalise = Character('Annalise Keating', 0, "No mistakes!")
 main_players = [crystal, jojo, kurtis, joshua]
 
 # Location Instantiation
-josh_room = Location("Sean's hide-out", "Sean's hide-out description")
-liz_office = Location("Liz's Office", "Liz's Office description")
-elevator = Location("Elevator", "elevator description")
-roof = Location("Roof", "roof description")
-kitchen = Location("Kitchen", "kitchen description")
-gym = Location("Gym", "gym description")
+josh_room = Location("Sean's hide-out", "You are in your first room, the 'MURDER ROOM'")
+liz_office = Location("Liz's Office", "You are in Liz Carley room. Take a\n look around, but don't take\n too long, it will look suspicious if she\n catches you.")
+elevator = Location("Elevator", "You are in the elevator. This gives you access to anywhere in the building")
+roof = Location("Roof", "You are on the roof.\n Its a stormy evening and walking around dripping\n water might draw a few eyes.\n Better hurry and gather supplies")
+kitchen = Location("Kitchen", "You are in the kitchen.\n This is the busiest room in the building.\n You should do what you need to do quickly.")
+gym = Location("Gym", "You are in the gym.\n Its pretty hot in here. Sweating might\n not be the best idea today, I wouldnt\n take too long in here")
 security_desk = Location("Security Desk", "security desk description")
 parking_garage = Location("Parking Garage", "parking garage description")
-community_center = Location("Community Center", "community center description")
+community_center = Location("Community Center", "You are in the community center.\n Its a lot of cameras in here!")
 location_keys = {
     josh_room: [liz_office, kitchen, elevator],
     liz_office: [josh_room, kitchen, elevator],
@@ -155,17 +155,21 @@ josh_room_menu_with_code = ["Search for anything useful", "Look at my items", "M
 def choosing_active_player():
     print()  # Add in player stats and special characteristics
     print_menu(main_players)
-    choosing_player = input("Please pick a player: ")
-    if choosing_player == "1":
-        active_player = crystal
-    if choosing_player == "2":
-        active_player = jojo
-    if choosing_player == "3":
-        active_player = kurtis
-    if choosing_player == "4":
-        active_player = joshua
-    if choosing_player == "1000":
-        active_player = annalise
+    active_player = True
+    while active_player == True:
+        choosing_player = input("Please pick a player: ")
+        if choosing_player == "1":
+            active_player = crystal
+        if choosing_player == "2":
+            active_player = jojo  
+        if choosing_player == "3":
+            active_player = kurtis    
+        if choosing_player == "4":
+            active_player = joshua      
+        if choosing_player == "1000":
+            active_player = annalise
+        else:
+            print("Please choose provided options: ")
     print(active_player)
     return active_player
 
@@ -187,6 +191,8 @@ def print_location_options(location_options):
         location_name_list.append(location)
     for idx, choice in enumerate(location_name_list):
         print(f"{idx+1}. {choice.name}")
+
+
 
 
 def which_list(room):
@@ -212,8 +218,16 @@ def which_list(room):
 
 def remove_item_from_inventory(player):
     print_menu(player.items)
-    full_menu_remove_choice = int(
-        input("Which item would you like to remove?"))
+    while True:
+        try:
+            full_menu_remove_choice = int(
+            input("Which item would you like to remove?"))
+            if full_menu_remove_choice <= len(player.items):
+                break
+            else:
+                print("That is not an option. ")
+        except ValueError:
+            print("That is not an option, please choose provided options: ")
     player.items.pop(full_menu_remove_choice - 1)
     print("Your item has been removed")
 
@@ -224,27 +238,32 @@ def main_menu_choice_1(list_option, player):
     while item_loop:
         print_menu(list_option)
         if len(player.items) >= 5:
-            full_menu_choice = (input(
-                "You are already holding the maximum number of items. Would you like to remove one? y or n:  "))
-            if full_menu_choice.lower() == "y":
-                remove_item_from_inventory(player)
-            elif full_menu_choice == "n":
-                pass
-            # incorrect responce error catch
-            else:
-                print()
-                pass
+            while True:
+                full_menu_choice = (input(
+                    "You are already holding the maximum number of items. Would you like to remove one? y or n:  "))
+                if full_menu_choice.lower() == "y":
+                    remove_item_from_inventory(player)
+                    break
+                elif full_menu_choice == "n":
+                    break
+                # incorrect responce error catch
+                else:
+                    print("\nThat is not a valid option, try again:")
+                    
         else:
             try:
                 item_chosen = int(input(
                     "Which item would you like to pick up?\nNote: To exit, press 9.\nPlease choose: "))
                 if item_chosen == 9:
                     item_loop = False
+                elif item_chosen > len(list_option):
+                    print("\nThat is not an option, try again:")
                 else:
                     choice_item = list_option[item_chosen-1]
                     play_game = player.add_items(choice_item)
                     print(choice_item)
-                    player.print_alert_status()
+                    player.alert_banner()
+                    #player.print_alert_status()
                     list_option.pop(item_chosen-1)
                     continue_choosing = input(
                         "Would you like to choose another item? y or n\n")
@@ -260,21 +279,29 @@ def main_menu_choice_2(location, player, list_option):
     if len(player.items) > 0:
         print_menu(player.items)
     else:
-        print("You have no items in your inventory.")
+        print("\n**You have no items in your inventory.**")
         return play_game
     if location == josh_room:
         print_string_menu(list_option)
-        choice_item_use_menu = int(input("Please choose: "))
-        if choice_item_use_menu == 1:
-            print_menu(player.items)
-            user_choice = int(input("Choose which item to use:"))
-            item_being_used = player.items[user_choice-1]
-            play_game = player.item_used(item_being_used)
-            return play_game
-        if choice_item_use_menu == 2:  # get rid of item: print items and ask to choose an item to get rid of. run method for removing item JoJo
-            remove_item_from_inventory(player)
-        if choice_item_use_menu == 3:
-            return play_game
+        while True:
+            try:
+                choice_item_use_menu = int(input("Please choose: "))
+                if choice_item_use_menu == 1:
+                    print_menu(player.items)
+                    user_choice = int(input("Choose which item to use:")) #NEED ANOTHER ERROR STATEMENT...
+                    item_being_used = player.items[user_choice-1]
+                    play_game = player.item_used(item_being_used)
+                    return play_game
+                if choice_item_use_menu == 2:  # get rid of item: print items and ask to choose an item to get rid of. run method for removing item JoJo
+                    remove_item_from_inventory(player)
+                    break
+                if choice_item_use_menu == 3:
+                    break
+                else:
+                    print("Please choose an available menu choice")
+            except ValueError:
+                print("Please choose an available menu choice!")
+    return play_game
 
 
 def main_menu_choice_3(location):
@@ -335,7 +362,8 @@ def play_game():
         curr_items_list = which_list(curr_location)
         same_location = True
         while same_location:
-            active_player.print_alert_status()
+            active_player.alert_banner()
+            #active_player.print_alert_status()
             print("What would you like to do now?")
             elevator_only = False
             if len(location_keys[curr_location]) == 1 and location_keys[curr_location][0] == elevator:

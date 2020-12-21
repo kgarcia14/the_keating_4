@@ -14,8 +14,15 @@ class Character:
         self.parts = [self.hands, self.shirt]
 
     def print_alert_status(self):
-        print(f"\n***Your alert level is: {self.alert_level}***\n")
-
+        print_statement = f"***Your alert level is: {self.alert_level}***"
+        return print_statement
+                
+    def alert_banner(self,border = '*'):
+        alert_status_length = len(self.print_alert_status())
+        line = border * alert_status_length
+        print(line)
+        print(self.print_alert_status())
+        print(line)
     # item limit within list: cap number of items and allow user to get rid of an item
     def add_items(self, item):
         if item.on_use == False:
