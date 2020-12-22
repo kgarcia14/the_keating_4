@@ -178,6 +178,7 @@ def number_guess():
             elif n > 5:
                 print(f"\nToo many tries! You lose!\nMy number was: {secret_number}!")    
             new_game = input("Press ENTER to continue")
+            os.system('cls||clear')
             break
             # if new_game.upper() == "Y":
             #     n = 1
