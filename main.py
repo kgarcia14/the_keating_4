@@ -5,7 +5,13 @@ from subprocess import call
 import os
 import time
 os.system('cls' if os.name == 'nt' else 'clear')
-# from pygame import mixer
+from pygame import mixer
+mixer.init()
+
+# Music
+def sound(file):
+    sound = mixer.Sound(f"audio/{file}")
+    return mixer.Sound.play(sound)
 
 
 
@@ -39,6 +45,15 @@ location_keys = {
     community_center: [elevator],
     gym: [elevator]
 }
+# crystal_location = {
+#  josh_room: [liz_office, kitchen, elevator, roof, community_center, gym],
+#     liz_office: [josh_room, kitchen, elevator, roof, community_center, gym,
+#     kitchen: [liz_office, josh_room, elevator, roof, community_center, gym],
+#     elevator: [liz_office, josh_room, kitchen, roof, community_center, gym],
+#     roof: [liz_office, josh_room, kitchen, community_center, gym],
+#     community_center: [liz_office, josh_room, kitchen, roof, community_center, gym],
+#     gym: [liz_office, kitchen, elevator, roof, community_center, josh_room]
+# }
 
 
 # Items Instantiation
@@ -309,7 +324,20 @@ def main_menu_choice_2(location, player, list_option):
                 if choice_item_use_menu == 3:
                     break
                 else:
-                    print("Please choose an available menu choice
+                    print("Please choose an available menu choice")
+            except ValueError:
+                print("Please choose an available menu choice")
+    return play_game
+
+
+def main_menu_choice_3(location, player):
+    location_list = []
+    if len(location_keys[location]) == 1 and location_keys[location][0] == elevator:
+        new_location = elevator
+        print("\n\n***You must take the elevator to your next location.***")
+    else:
+        for location in location_keys[location]:
+            location_list.append(location)        
         print("Where would you like to go?")
         print_location_options(location_list)
         while True:
@@ -317,6 +345,13 @@ def main_menu_choice_2(location, player, list_option):
                 location_choice = int(input("Please choose: "))
                 if location_choice <= len(location_list):
                     new_location = location_list[location_choice - 1]
+                    if location == elevator:
+                        sound("elevator.wav")
+                        player.elevator_going_down()
+                    else:
+                        sound("footsteps.wav")
+                        print("\n\nWalking.....")
+                        time.sleep(10)
                     break
                 else:
                     print("That is not a valid choice. Please try again.")
@@ -415,7 +450,7 @@ Joshua starts with alert level of {joshua.alert_level}. Obsessive compulsive. Po
                         play_game = False
                         same_location = False
                 elif main_menu_choice == "3":  # Move to a new location
-                    curr_location = main_menu_choice_3(curr_location)
+                    curr_location = main_menu_choice_3(curr_location, active_player)
                     same_location = False
                 elif main_menu_choice == "4":
                     play_game = False
