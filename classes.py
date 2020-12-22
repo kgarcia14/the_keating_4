@@ -2,6 +2,13 @@ from subprocess import call
 import os
 import time
 from ascii_art import caught_graphic, get_away_graphic
+from pygame import mixer
+mixer.init()
+
+# Music
+def sound(file):
+    sound = mixer.Sound(f"audio/{file}")
+    return mixer.Sound.play(sound)
 
 
 class Character:
@@ -71,6 +78,7 @@ class Character:
         print("You are trying to escape! Good luck.\nRememeber, if your alert level is too high, you will get caught!\nIt's time to sneak down to the lobby. You gather up the body and head down the hall. Hopefully, no one catches you!")
         continue_on = input("Please press ENTER to continue.")
         print("*----")
+        sound("footsteps.wav")
         time.sleep(1)
         os.system('cls||clear')
         print("You are trying to escape! Good luck.\nRememeber, if your alert level is too high, you will get caught!\nIt's time to sneak down to the lobby. You gather up the body and head down the hall. Hopefully, no one catches you!")
@@ -95,6 +103,7 @@ class Character:
         os.system('cls||clear')
 
     def elevator_going_down(self):
+        sound("elevator.wav")
         os.system('cls||clear')
         print('''
         | * |
@@ -143,6 +152,7 @@ class Character:
         os.system('cls||clear')
 
     def sneak_past_security(self):
+        sound("footsteps.wav")
         os.system('cls||clear')
         print("*----")
         time.sleep(1)
@@ -161,6 +171,7 @@ class Character:
         os.system('cls||clear')
 
     def casual_past_security(self):
+        sound("footsteps.wav")
         os.system('cls||clear')
         print("|----")
         time.sleep(1)
@@ -183,6 +194,7 @@ class Character:
         time.sleep(3)
         if self.alert_level < 40:
             print("She's driving the getaway car! You made it!")#<<<<----Create a great win statement!
+            sound("tires.wav")
             get_away_graphic()
             win_graphic()
         else:

@@ -336,8 +336,8 @@ def main_menu_choice_3(location, player):
         new_location = elevator
         print("\n\n***You must take the elevator to your next location.***")
     else:
-        for location in location_keys[location]:
-            location_list.append(location)        
+        for loc in location_keys[location]:
+            location_list.append(loc)        
         print("Where would you like to go?")
         print_location_options(location_list)
         while True:
@@ -346,7 +346,6 @@ def main_menu_choice_3(location, player):
                 if location_choice <= len(location_list):
                     new_location = location_list[location_choice - 1]
                     if location == elevator:
-                        sound("elevator.wav")
                         player.elevator_going_down()
                     else:
                         sound("footsteps.wav")
@@ -414,6 +413,7 @@ Joshua starts with alert level of {joshua.alert_level}. Obsessive compulsive. Po
         ''')  # Add in player stats and special characteristics
         active_player = choosing_active_player()
         welcome_message = f"Welcome to 'How To Get Away With MURDER!'\n\n{active_player.name} just woke up in a small room \nin the Atlanta Tech Village with a dead body on the \nfloor, bloody clothes and hands, with all evidence pointing \nto them. After looking around, it doesn't look like anyone \nhas noticed yet.{active_player.name} have dreams of becoming a top notch \nprogrammer and know that noone will believe they weren't \nthe murderer, in fact {active_player.name} isn't even sure they \ndidn't do it.Help {active_player.name} get away with this \nmurder so one day their programming dreams can be achieved. \nNavigate through the school and gather items that will help \nescape past the guard with the body to make it to the parking lot. \nBut beware -- everything you find will not be helpful and dont leave too much evidence around or you may be discovered. \nOnce you feel like you won't attract too much attention(alert level), try \nto sneak past the security desk and out of the door. GOOD LUCK! \nTIPS: \nYou must bring picked up items back to the murder room to use them. \nCarrying too many items at once will raise your alert level."
+        sound("breathing.wav")
         print(welcome_message)
         curr_location = josh_room
         code_unlocked = False
