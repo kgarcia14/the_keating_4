@@ -455,6 +455,8 @@ Joshua starts with alert level of {joshua.alert_level}. Obsessive compulsive. Po
                     play_game = False
                     same_location = False
                     print("The police are on their way! You lose!")
+                    sound("siren.wav")
+                    sound("siren2.wav")
                     caught_graphic()
                 elif main_menu_choice == "5":
                     play_game = main_menu_choice_5(curr_location, active_player)

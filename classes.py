@@ -73,6 +73,8 @@ class Character:
 
     def losing_statement(self):
         print(f"Oh no, {self.name}! Your alert level was too high and they are suspicious! They are coming!!!\n\nYou have been caught! Better luck next time. You should find Ryan....")
+        sound("siren.wav")
+        sound("siren2.wav")
         caught_graphic()
 
     def walking_the_hallway(self):
