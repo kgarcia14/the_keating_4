@@ -255,12 +255,11 @@ def main_menu_choice_1(list_option, player):
                     break
                 # incorrect responce error catch
                 else:
-                    print("\nThat is not a valid option, try again:")
-                    
+                    print("\nThat is not a valid option, try again:")      
         else:
             try:
                 item_chosen = int(input(
-                    "Which item would you like to pick up?\nNote: To exit, press 9.\nPlease choose: "))
+                    f"Which item would you like {player.name} to pick up?\nNote: To exit, press 9.\nPlease choose: "))
                 if item_chosen == 9:
                     item_loop = False
                 elif item_chosen > len(list_option):
@@ -296,6 +295,7 @@ def main_menu_choice_2(location, player, list_option):
         user_input = input("Press ENTER to continue")
         if user_input == "041221":
             print("You have unlocked the secret line to Ryan!\nNo worries, Ryan knows how to get rid of a body.\nYou can continue practicing your programming...\n\n\n*****GAME OVER*****")
+            player.win_graphic()
             play_game = "fart"
     else:
         print("\n**You have no items in your inventory.**")
@@ -430,7 +430,7 @@ Joshua starts with alert level of {joshua.alert_level}. Obsessive compulsive. Po
                 # print(curr_location.name)
                 active_player.alert_banner()
                 #active_player.print_alert_status()
-                print("What would you like to do now?")
+                print(f"What would you like {active_player.name} to do now?")
                 elevator_only = False
                 if len(location_keys[curr_location]) == 1 and location_keys[curr_location][0] == elevator:
                     elevator_only = True
