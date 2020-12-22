@@ -1,7 +1,10 @@
 import random
+import time
+import os
 
 def tic_tac_toe():
-    print("Welcome to Crystal's Tic Tac Toe Game!\nPlease follow the instructions carefully!")
+    os.system('cls||clear')
+    print("Welcome to the Tic Tac Toe Game!\nPlease follow the instructions carefully!")
     SIZE = 3
     board = []
     for y in range(SIZE):
@@ -20,7 +23,7 @@ def tic_tac_toe():
     player = 1
 
     error_number_message = "\n*******\nPlease enter a number between 0 and 2.\n*******"
-    winner_statement = "\n*****Player %s Wins!!!! Yay!*****"
+    winner_statement = "\n*****Player %s Wins!!!! Yay!*****\nWant a hint in escaping? Enter a secret code while you are looking at your inventory.\nNow, go find the code!"
 
     rabbit_foot = True
     while rabbit_foot:
@@ -42,7 +45,9 @@ def tic_tac_toe():
                     print(error_number_message) 
             except ValueError:
                 print(error_number_message)
-        
+        os.system('cls||clear')
+        print("Welcome to the Tic Tac Toe Game!\nPlease follow the instructions carefully!")
+        print("\nHere is your board!\nYou are X and Sean the computer is O.\n")
         board[row][column] = player_token[player - 1]
         print("\n")
         for row in board:
@@ -75,7 +80,13 @@ def tic_tac_toe():
             player = 2
         else:
             player = 1
-
+       
+        print("Computer's Turn!")
+        time.sleep(3)
+        os.system('cls||clear')
+        print("Welcome to the Tic Tac Toe Game!\nPlease follow the instructions carefully!")
+        print("\nHere is your board!\nYou are X and Sean the computer is O.\n")
+        
     #Computer's Turn!
         while True:
             row = random.randint(0, 2)
@@ -111,6 +122,8 @@ def tic_tac_toe():
             print(winner_statement % player)
             rabbit_foot = False
             break
+        if rabbit_foot == False:
+            user_input = input("Press ENTER to continue")
     #Changing player so messages will be correct
         if player == 1:
             player = 2
@@ -120,21 +133,59 @@ def tic_tac_toe():
     #Someone has won or board is full:
     if i == 8:
         print("\n*****It's a cat! You guys are evenly matched!*****\nPlease play again!\n\n")
+        user_input = input("Press ENTER to continue")
     else:
         print("\n\tPlease play again!\n\n")
+        user_input = input("Press ENTER to continue")
 
 
 # tetris board
 
 # tetris pieces
-long_line = 
+# long_line = 
 
-def tetris():
-    SIZE = 15
-    board = []
-    for y in range(SIZE):
-        board.append([])        
-        for x in range(SIZE):
-            board[y].append(" ")
+# def tetris():
+#     SIZE = 15
+#     board = []
+#     for y in range(SIZE):
+#         board.append([])        
+#         for x in range(SIZE):
+#             board[y].append(" ")
 
-tic_tac_toe()
+
+def number_guess():
+    os.system('cls||clear')
+    print("I am thinking of a number between 1 and 100.")
+    n = 1
+    secret_number = random.randint(1, 100)
+    while n <= 5:
+        while True:
+            try: 
+                user_guess = int(input(f"\nAttempt {n}/5: "))
+                break
+            except ValueError:
+                print("Please pick a number between 1 & 100?")
+        n +=1
+        if user_guess < secret_number:
+            print(f"\nNope! You lose! Just kidding, {user_guess} is too low!")
+        elif user_guess > secret_number:
+            print(f"\nNo Way! {user_guess} is too big!")
+        while n > 5 or user_guess == secret_number:
+            if user_guess == secret_number:
+                print("\nYou got it! You get a gold star!\nAnd a secret code!") 
+                time.sleep(3)
+                print("For help escaping, call Ryan!\nSecret Code: 041221") 
+            elif n > 5:
+                print(f"\nToo many tries! You lose!\nMy number was: {secret_number}!")    
+            new_game = input("Press ENTER to continue")
+            os.system('cls||clear')
+            break
+            # if new_game.upper() == "Y":
+            #     n = 1
+            #     secret_number = random.randint(1, 100)
+            #     print("\nI am thinking of a number between 1 and 100.")
+            #     break
+            # else:
+            #     print("Thanks for playing!")
+            #     n = 6
+            #     break
