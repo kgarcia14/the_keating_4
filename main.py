@@ -1,47 +1,11 @@
 from classes import Character, Location, Item
 from arcade import tic_tac_toe, number_guess
-from ascii_art import arcade_screen
+from ascii_art import arcade_screen, game_start_graphic, caught_graphic, get_away_graphic, win_graphic , guess_number_graphic
 from subprocess import call
 import os
 import time
 os.system('cls' if os.name == 'nt' else 'clear')
-# Liz's Room
-#print("You are in Liz Carley room. Take a\n look around, but don't take\n too long, it will look suspicious if she\n catches you.")
-
-
-# # Elevator
-#print("You are in the elevator. This gives you access to anywhere in the building")
-
-# # Roof
-# print("You are on the roof.\n Its a stormy evening and walking around dripping\n water might draw a few eyes.\n Better hurry and gather supplies")
-
-# Kitchen
-#print("You are in the kitchen.\n This is the busiest room in the building.\n You should do what you need to do quickly.")
-
-# # Gym
-#print("You are in the gym.\n Its pretty hot in here. Sweating might\n not be the best idea today, I wouldnt\n take too long in here")
-
-# Parking Garage
-#print("CONGRATULATIONS\n\n The body is in the car are you got away with MURDER\n\n now what????????")
-
-# Community Center
-#print("You are in the community center.\n Its a lot of cameras in here!")
-
-        # We need some info here about the game....so you know what character you want to choose, must use items in Josh's room!
-        #'''
-        #Please choose a player
-        #Crystal starts with alert level of 40. Resourceful. Power: She can move to any room without the elevator.
-        #Jojo starts with alert level of 10. Sneaky. Power: She can carry 1 extra item.
-        #Kurtis starts with alert level of 30. Detail oriented. Power: After #, his alert level penalty is decreased by half points.
-        #Joshua starts with alert level of 5. Obsessive compulsive. Power: Doesn't leave a mess
-        #'''
-        # Here we need to set the scene!
-        #first time instructions count 
-        #print("Welcome to 'How To Get Away With MURDER!'\n #active_player.name has just woke up in a small room\n in the Atlanta Tech Village with a dead body\n on the floor #(keeping vague)with all evidence pointing to them.\n Looking around, it doesn't look like anyone has\n noticed yet.active_player.name has dreams of being a top notch programmer\n and know that noone will believe they\n weren't the murderer, in fact\n active_player.name isn't even sure they didn't do it.\n Help active_player.name get away with this murder\n so one day their programming dreams can be achieved.\n Navigate through the school and gather items\n that will help escape pas the guard\n with the body to\n make it to the parking lot.\n But beware -- everything you \n find will not be helpful and dont leave \n too much evidence around or you\n may be discovered. Once you feel\n your you won't attract too much attention(alert level), try\n to sneak past the security desk and out the\n door. GOOD LUCK!\n\n\nTIPS:\n You must bring picked up items back to the murder room to use\nCarrying to many items at once will raise your alert level  ")
-        #description 
-        #print("You are in your first room, the 'MURDER ROOM'")
-
-
+# from pygame import mixer
 
 
 
@@ -57,15 +21,15 @@ annalise = Character('Annalise Keating', 0, "No mistakes!")
 main_players = [crystal, jojo, kurtis, joshua]
 
 # Location Instantiation
-josh_room = Location("Sean's hide-out", "\nYou are in your first room, the 'MURDER ROOM' aka Sean's hide-out")
+josh_room = Location("Sean's hide-out", "\nYou are in your first room, the 'MURDER ROOM'")
 liz_office = Location("Liz's Office", "\nTake a look around, but don't take too long, it will look suspicious if she catches you.")
 elevator = Location("Elevator", "\nThis gives you access to anywhere in the building")
 roof = Location("Roof", "\n Its a stormy evening and walking around dripping water might draw a few eyes. Better hurry and gather supplies")
 kitchen = Location("Kitchen", "\n This is the busiest room in the building. You should do what you need to do quickly.")
-gym = Location("Gym", "\n Its pretty hot in here. Sweating might not be the best idea today, I wouldnt take too long in here")
+gym = Location("Gym", "\n Its pretty hot in here. Sweating might not be the best idea today, I wouldn't take too long in here")
 security_desk = Location("Security Desk", "security desk description")
 parking_garage = Location("Parking Garage", "parking garage description")
-community_center = Location("Community Center", "\n Its a lot of cameras in here!")
+community_center = Location("Community Center", "\nYou are in the community center. Its a lot of cameras in here!")
 location_keys = {
     josh_room: [liz_office, kitchen, elevator],
     liz_office: [josh_room, kitchen, elevator],
@@ -79,13 +43,13 @@ location_keys = {
 
 # Items Instantiation
 # Josh's Room
-monitor = Item("monitor", josh_room, "pass", False, 10)
-jacket = Item("jacket", josh_room, "shirt", False, -10)
-bag_of_chips = Item("bag of chips", josh_room, "pass", "pass", 5)
+monitor = Item("monitor", josh_room, "pass", False, 40)
+jacket = Item("jacket", josh_room, "shirt", False, -25)
+bag_of_chips = Item("bag of chips", josh_room, "pass", "pass", 35)
 items_josh_room = [monitor, jacket, bag_of_chips]
 
 # Liz's Room
-tshirt = Item("t-shirt", liz_office, "shirt", False, -10)
+tshirt = Item("t-shirt", liz_office, "shirt", False, -20)
 # input code in book and if you can solve unlocks ryan phone number and he distracts security guard for you
 book = Item("book", liz_office, "pass", "pass")
 keyboard = Item("keyboard", liz_office, "pass", "pass", 0, 15)
@@ -97,13 +61,13 @@ trash_can = Item("Trash Can", elevator, "pass", "pass", 0, -10)
 items_elevator = [key_card, trash_can]
 
 # # Roof
-tarp = Item("tarp", roof, "pass", "pass", 0, -15)
-chair = Item("chair", roof, "pass", False, 15)
-firepit = Item("firepit", roof, "pass", False, 10)
+tarp = Item("tarp", roof, "pass", "pass", 0, -25)
+chair = Item("chair", roof, "pass", False, 20)
+firepit = Item("firepit", roof, "pass", False, -20)
 items_roof = [tarp, chair, firepit]
 
 # Kitchen
-sink = Item("sink", kitchen, "hands", False,  -10)
+sink = Item("sink", kitchen, "hands", False,  -15)
 bleach = Item("bleach", kitchen, "hands", "pass", 0, -10)
 freezer = Item("freezer", kitchen, "pass", False)
 items_kitchen = [sink, bleach, freezer]
@@ -111,7 +75,7 @@ items_kitchen = [sink, bleach, freezer]
 # # Gym
 shower = Item("shower", gym, "hands", False, -5)
 shower_curtain = Item("shower_curtain", gym, "pass", "pass", 0, -5)
-weights = Item("weights", gym, "pass", "pass", 0, 15)
+weights = Item("weights", gym, "pass", "pass", 0, 35)
 items_gym = [shower, shower_curtain, weights]
 
 # # Security Desk
@@ -125,8 +89,8 @@ items_parking_garage = [get_away_car]
 
 # Community Center
 arcade_game = Item("Arcade Game", community_center, "pass", "pass")
-pillows = Item("Pillow", community_center, "pass", False, 10)
-ping_pong = Item("Ping Pong", community_center, "pass", False, 5)
+pillows = Item("Pillow", community_center, "pass", False, 15)
+ping_pong = Item("Ping Pong", community_center, "pass", False, 10)
 rug = Item("Rug", community_center, "pass", "pass", 0, -5)
 blankets = Item("Blanket", community_center, "pass", "pass", 0, -15)
 items_community_center = [arcade_game,
@@ -401,7 +365,7 @@ def play_game():
     continue_playing = True
     while continue_playing:
         os.system('cls||clear')
-        print()# Here we can have a graphic for our game...
+        game_start_graphic()# Here we can have a graphic for our game...
         # We need some info here about the game....so you know what character you want to choose, must use items in Josh's room!
         print(f'''
 *****Player Characteristics******
@@ -414,7 +378,7 @@ Kurtis starts with alert level of {kurtis.alert_level}. Detail oriented. Power: 
 Joshua starts with alert level of {joshua.alert_level}. Obsessive compulsive. Power: Doesn't leave a mess
         ''')  # Add in player stats and special characteristics
         active_player = choosing_active_player()
-        welcome_message = f"Welcome to 'How To Get Away With MURDER!'\n\n{active_player.name} has just woke up in a small room \nin the Atlanta Tech Village with a dead body on the \nfloor, bloody clothes and hands with all evidence pointing \nto them.Looking around, it doesn't look like anyone \nhas noticed yet.{active_player.name} has dreams of being a top notch \nprogrammer and know that noone will believe they weren't \nthe murderer, in fact {active_player.name} isn't even sure they \ndidn't do it.Help {active_player.name} get away with this \nmurder so one day their programming dreams can be achieved. \nNavigate through the school and gather items that will help \nescape pas the guard with the body to make it to the parking lot. \nBut beware -- everything you find will not be helpful and dont leave too much evidence around or you may be discovered. \nOnce you feel your you won't attract too much attention(alert level), try \nto sneak past the security desk and out the door. GOOD LUCK! \nTIPS: \nYou must bring picked up items back to the murder room to use them. \nCarrying too many items at once will raise your alert level."
+        welcome_message = f"Welcome to 'How To Get Away With MURDER!'\n\n{active_player.name} just woke up in a small room \nin the Atlanta Tech Village with a dead body on the \nfloor, bloody clothes and hands, with all evidence pointing \nto them. After looking around, it doesn't look like anyone \nhas noticed yet.{active_player.name} have dreams of becoming a top notch \nprogrammer and know that noone will believe they weren't \nthe murderer, in fact {active_player.name} isn't even sure they \ndidn't do it.Help {active_player.name} get away with this \nmurder so one day their programming dreams can be achieved. \nNavigate through the school and gather items that will help \nescape past the guard with the body to make it to the parking lot. \nBut beware -- everything you find will not be helpful and dont leave too much evidence around or you may be discovered. \nOnce you feel like you won't attract too much attention(alert level), try \nto sneak past the security desk and out of the door. GOOD LUCK! \nTIPS: \nYou must bring picked up items back to the murder room to use them. \nCarrying too many items at once will raise your alert level."
         print(welcome_message)
         curr_location = josh_room
         code_unlocked = False
@@ -455,6 +419,9 @@ Joshua starts with alert level of {joshua.alert_level}. Obsessive compulsive. Po
                     same_location = False
                 elif main_menu_choice == "4":
                     play_game = False
+                    same_location = False
+                    print("The police are on their way! you lose!")
+                    caught_graphic()
                 elif main_menu_choice == "5":
                     play_game = main_menu_choice_5(curr_location, active_player)
                     same_location = False

@@ -1,6 +1,7 @@
 import random
 import time
 import os
+from ascii_art import guess_number_graphic, tic_tac_toe_graphic
 
 def tic_tac_toe():
     os.system('cls||clear')
@@ -155,6 +156,7 @@ def tic_tac_toe():
 
 def number_guess():
     os.system('cls||clear')
+    guess_number()
     print("I am thinking of a number between 1 and 100.")
     n = 1
     secret_number = random.randint(1, 100)
