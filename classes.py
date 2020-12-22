@@ -1,6 +1,7 @@
 from subprocess import call
 import os
 import time
+from ascii_art import caught_graphic, get_away_graphic
 
 
 class Character:
@@ -63,6 +64,7 @@ class Character:
 
     def losing_statement(self):
         print(f"Oh no, {self.name}! Your alert level was too high and they are suspicious! They are coming!!!\n\nYou have been caught! Better luck next time. You should find Ryan....")
+        caught_graphic()
 
     def walking_the_hallway(self):
         os.system('cls||clear')
@@ -181,6 +183,8 @@ class Character:
         time.sleep(3)
         if self.alert_level < 40:
             print("She's driving the getaway car! You made it!")#<<<<----Create a great win statement!
+            get_away_graphic()
+            win_graphic()
         else:
             print("It looks like you were too big of a risk! She isn't coming. Good luck running with a body....\n")
             self.losing_statement()
