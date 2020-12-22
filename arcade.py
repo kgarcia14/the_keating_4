@@ -156,7 +156,7 @@ def tic_tac_toe():
 
 def number_guess():
     os.system('cls||clear')
-    guess_number()
+    guess_number_graphic()
     print("I am thinking of a number between 1 and 100.")
     n = 1
     secret_number = random.randint(1, 100)
@@ -174,14 +174,14 @@ def number_guess():
             print(f"\nNo Way! {user_guess} is too big!")
         while n > 5 or user_guess == secret_number:
             if user_guess == secret_number:
-                print("\nYou got it! You get a gold star!\nAnd a secret code!") 
+                print("\nYou got it! You get a gold star!\n\nAnd a secret code!") 
                 time.sleep(3)
-                print("For help escaping, call Ryan!\nSecret Code: 041221") 
+                print("\nFor help escaping, call Ryan!\nSecret Code: 041221") 
             elif n > 5:
                 print(f"\nToo many tries! You lose!\nMy number was: {secret_number}!")    
-            new_game = input("Press ENTER to continue")
+            new_game = input("\n\nPress ENTER to continue")
             os.system('cls||clear')
-            break
+            return False
             # if new_game.upper() == "Y":
             #     n = 1
             #     secret_number = random.randint(1, 100)

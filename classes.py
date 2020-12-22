@@ -1,7 +1,7 @@
 from subprocess import call
 import os
 import time
-from ascii_art import caught_graphic, get_away_graphic
+from ascii_art import caught_graphic, get_away_graphic, win_graphic
 from pygame import mixer
 mixer.init()
 
@@ -12,9 +12,11 @@ def sound(file):
 
 
 class Character:
-    def __init__(self, name, alert_level, ability):
+    def __init__(self, name, alert_level, pronoun, pronoun2, ability):
         self.name = name
         self.alert_level = alert_level
+        self.pronoun = pronoun
+        self.pronoun2 = pronoun2
         self.items = []
         self.ability = ability
         self.hands = ["hands", True]
@@ -52,7 +54,7 @@ class Character:
         if self.alert_level < 0:
             self.alert_level = 0
         elif self.alert_level > 100:
-            play_game = False
+            play_game = "fart"
             self.losing_statement()
         return play_game
 
@@ -155,38 +157,38 @@ class Character:
         sound("footsteps.wav")
         os.system('cls||clear')
         print("*----")
-        time.sleep(1)
+        time.sleep(.5)
         os.system('cls||clear')
         print("-*---")
-        time.sleep(1)
+        time.sleep(.5)
         os.system('cls||clear')
         print("--*--")
-        time.sleep(1)
+        time.sleep(.5)
         os.system('cls||clear')
         print("---*-")
-        time.sleep(1)
+        time.sleep(.5)
         os.system('cls||clear')
         print("----*")
-        time.sleep(1)
+        time.sleep(.5)
         os.system('cls||clear')
 
     def casual_past_security(self):
         sound("footsteps.wav")
         os.system('cls||clear')
         print("|----")
-        time.sleep(1)
+        time.sleep(.5)
         os.system('cls||clear')
         print("-|---")
-        time.sleep(1)
+        time.sleep(.5)
         os.system('cls||clear')
         print("--|--")
-        time.sleep(1)
+        time.sleep(.5)
         os.system('cls||clear')
         print("---|-")
-        time.sleep(1)
+        time.sleep(.5)
         os.system('cls||clear')
         print("----|")
-        time.sleep(1)
+        time.sleep(.5)
         os.system('cls||clear')
 
     def garage_scene(self):
