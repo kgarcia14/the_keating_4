@@ -3,6 +3,7 @@ from subprocess import call
 import os
 import time
 os.system('cls' if os.name == 'nt' else 'clear')
+from pygame import mixer
 # Liz's Room
 #print("You are in Liz Carley room. Take a\n look around, but don't take\n too long, it will look suspicious if she\n catches you.")
 
@@ -392,7 +393,7 @@ Kurtis starts with alert level of 30. Detail oriented. Power: After 80, his aler
 Joshua starts with alert level of 5. Obsessive compulsive. Power: Doesn't leave a mess
         ''')  # Add in player stats and special characteristics
         active_player = choosing_active_player()
-        welcome_message = f"Welcome to 'How To Get Away With MURDER!'\n\n{active_player.name} has just woke up in a small room \nin the Atlanta Tech Village with a dead body on the \nfloor, bloody clothes and hands with all evidence pointing \nto them.Looking around, it doesn't look like anyone \nhas noticed yet.{active_player.name} has dreams of being a top notch \nprogrammer and know that noone will believe they weren't \nthe murderer, in fact {active_player.name} isn't even sure they \ndidn't do it.Help {active_player.name} get away with this \nmurder so one day their programming dreams can be achieved. \nNavigate through the school and gather items that will help \nescape pas the guard with the body to make it to the parking lot. \nBut beware -- everything you find will not be helpful and dont leave too much evidence around or you may be discovered. \nOnce you feel your you won't attract too much attention(alert level), try \nto sneak past the security desk and out the door. GOOD LUCK! \nTIPS: \nYou must bring picked up items back to the murder room to use them. \nCarrying too many items at once will raise your alert level."
+        welcome_message = f"Welcome to 'How To Get Away With MURDER!'\n\n{active_player.name} has just woke up in a small room \nin the Atlanta Tech Village with a dead body on the \nfloor, bloody clothes and hands with all evidence pointing \nto them.Looking around, it doesn't look like anyone \nhas noticed yet.{active_player.name} has dreams of being a top notch \nprogrammer and know that noone will believe they weren't \nthe murderer, in fact {active_player.name} isn't even sure they \ndidn't do it.Help {active_player.name} get away with this \nmurder so one day their programming dreams can be achieved. \nNavigate through the school and gather items that will help \nescape past the guard with the body to make it to the parking lot. \nBut beware -- everything you find will not be helpful and dont leave too much evidence around or you may be discovered. \nOnce you feel your you won't attract too much attention(alert level), try \nto sneak past the security desk and out of the door. GOOD LUCK! \nTIPS: \nYou must bring picked up items back to the murder room to use them. \nCarrying too many items at once will raise your alert level."
         print(welcome_message)
         curr_location = josh_room
         code_unlocked = False
