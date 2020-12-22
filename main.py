@@ -309,20 +309,7 @@ def main_menu_choice_2(location, player, list_option):
                 if choice_item_use_menu == 3:
                     break
                 else:
-                    print("Please choose an available menu choice")
-            except ValueError:
-                print("Please choose an available menu choice")
-    return play_game
-
-
-def main_menu_choice_3(location):
-    location_list = []
-    if len(location_keys[location]) == 1 and location_keys[location][0] == elevator:
-        new_location = elevator
-        print("\n\n***You must take the elevator to your next location.***")
-    else:
-        for location in location_keys[location]:
-            location_list.append(location)
+                    print("Please choose an available menu choice
         print("Where would you like to go?")
         print_location_options(location_list)
         while True:
