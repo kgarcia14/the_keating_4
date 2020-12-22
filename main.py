@@ -1,4 +1,6 @@
 from classes import Character, Location, Item
+from arcade import tic_tac_toe, number_guess
+from ascii_art import arcade_screen
 from subprocess import call
 import os
 import time
@@ -149,6 +151,8 @@ josh_room_menu = ["Search for anything useful", "Look at my items", "Move to a n
 josh_room_menu_with_code = ["Search for anything useful", "Look at my items", "Move to a new location",
                             "Attempt to Escape with the body", "Call the Police", "Attempt to Escape with the body", "***Call Ryan***"]
 
+arcade_menu = ["tic-tac-toe", "guess my number", "EXIT"]
+
 
 # Functions
 
@@ -160,16 +164,17 @@ def choosing_active_player():
         choosing_player = input("Please pick a player: ")
         if choosing_player == "1":
             active_player = crystal
-        if choosing_player == "2":
+        elif choosing_player == "2":
             active_player = jojo  
-        if choosing_player == "3":
+        elif choosing_player == "3":
             active_player = kurtis    
-        if choosing_player == "4":
+        elif choosing_player == "4":
             active_player = joshua      
-        if choosing_player == "1000":
+        elif choosing_player == "1000":
             active_player = annalise
         else:
             print("Please choose provided options: ")
+    os.system('cls||clear')
     print(active_player)
     return active_player
 
@@ -231,6 +236,25 @@ def remove_item_from_inventory(player):
     player.items.pop(full_menu_remove_choice - 1)
     print("Your item has been removed")
 
+def play_arcade_game():
+    os.system('cls||clear')
+    while True:
+        arcade_screen()
+        print("What would you like to play?")
+        print_string_menu(arcade_menu)
+        try:
+            game_choice = int(input("Please choose: "))
+            if game_choice > 3:
+                print("That is not an option! Please try again.")
+            elif game_choice == 1:
+                tic_tac_toe()
+            elif game_choice == 2:
+                number_guess()
+            elif game_choice == 3:
+                os.system('cls||clear')
+                return True
+        except ValueError:
+            print("That is not an option. Please try again.")
 
 def main_menu_choice_1(list_option, player):
     item_loop = True
@@ -260,6 +284,9 @@ def main_menu_choice_1(list_option, player):
                     print("\nThat is not an option, try again:")
                 else:
                     choice_item = list_option[item_chosen-1]
+                    if choice_item == arcade_game:
+                        play_game = play_arcade_game()
+                        return play_game
                     play_game = player.add_items(choice_item)
                     print(choice_item)
                     player.alert_banner()
@@ -283,6 +310,10 @@ def main_menu_choice_2(location, player, list_option):
     play_game = True
     if len(player.items) > 0:
         print_menu(player.items)
+        user_input = input("Press ENTER to continue")
+        if user_input == "041221":
+            print("You have unlocked the secret line to Ryan!\nNo worries, Ryan knows how to get rid of a body.\nYou can continue practicing your programming...\n\n\n*****GAME OVER*****")
+            play_game = "fart"
     else:
         print("\n**You have no items in your inventory.**")
         return play_game
@@ -381,15 +412,15 @@ def play_game():
         os.system('cls||clear')
         print()# Here we can have a graphic for our game...
         # We need some info here about the game....so you know what character you want to choose, must use items in Josh's room!
-        print('''
+        print(f'''
 *****Player Characteristics******
-Crystal starts with alert level of 40. Resourceful. Power: She can move to any room without the elevator.
+Crystal starts with alert level of {crystal.alert_level}. Resourceful. Power: She can move to any room without the elevator.
 
-Jojo starts with alert level of 10. Sneaky. Power: She can carry 1 extra item.
+Jojo starts with alert level of {jojo.alert_level}. Sneaky. Power: She can carry 1 extra item.
 
-Kurtis starts with alert level of 30. Detail oriented. Power: After 80, his alert level penalty is decreased by half points.
+Kurtis starts with alert level of {kurtis.alert_level}. Detail oriented. Power: After 80, his alert level penalty is decreased by half points.
 
-Joshua starts with alert level of 5. Obsessive compulsive. Power: Doesn't leave a mess
+Joshua starts with alert level of {joshua.alert_level}. Obsessive compulsive. Power: Doesn't leave a mess
         ''')  # Add in player stats and special characteristics
         active_player = choosing_active_player()
         welcome_message = f"Welcome to 'How To Get Away With MURDER!'\n\n{active_player.name} has just woke up in a small room \nin the Atlanta Tech Village with a dead body on the \nfloor, bloody clothes and hands with all evidence pointing \nto them.Looking around, it doesn't look like anyone \nhas noticed yet.{active_player.name} has dreams of being a top notch \nprogrammer and know that noone will believe they weren't \nthe murderer, in fact {active_player.name} isn't even sure they \ndidn't do it.Help {active_player.name} get away with this \nmurder so one day their programming dreams can be achieved. \nNavigate through the school and gather items that will help \nescape pas the guard with the body to make it to the parking lot. \nBut beware -- everything you find will not be helpful and dont leave too much evidence around or you may be discovered. \nOnce you feel your you won't attract too much attention(alert level), try \nto sneak past the security desk and out the door. GOOD LUCK! \nTIPS: \nYou must bring picked up items back to the murder room to use them. \nCarrying too many items at once will raise your alert level."
@@ -399,13 +430,14 @@ Joshua starts with alert level of 5. Obsessive compulsive. Power: Doesn't leave 
         play_game = True
         hands = "dirty"
         shirt = "dirty"
-        continue_on = input("Press enter to continue: ")
+        continue_on = input("Press ENTER to continue")
         while play_game:
-            os.system('cls||clear')
+            os.system('cls' if os.name == 'nt' else 'clear')
             print(curr_location)
             curr_items_list = which_list(curr_location)
             same_location = True
             while same_location:
+                # print(curr_location.name)
                 active_player.alert_banner()
                 #active_player.print_alert_status()
                 print("What would you like to do now?")
@@ -422,14 +454,17 @@ Joshua starts with alert level of 5. Obsessive compulsive. Power: Doesn't leave 
                 main_menu_choice = input("Please choose: ")
                 if main_menu_choice == "1":
                     play_game = main_menu_choice_1(curr_items_list, active_player)
-                if main_menu_choice == "2":
+                elif main_menu_choice == "2":
                     play_game = main_menu_choice_2(curr_location, active_player, item_use_menu)
-                if main_menu_choice == "3":  # Move to a new location
+                    if play_game == "fart":
+                        play_game = False
+                        same_location = False
+                elif main_menu_choice == "3":  # Move to a new location
                     curr_location = main_menu_choice_3(curr_location)
                     same_location = False
-                if main_menu_choice == "4":
+                elif main_menu_choice == "4":
                     play_game = False
-                if main_menu_choice == "5":
+                elif main_menu_choice == "5":
                     play_game = main_menu_choice_5(curr_location, active_player)
                     same_location = False
                 else:
