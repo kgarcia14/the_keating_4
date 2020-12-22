@@ -246,6 +246,8 @@ def play_arcade_game():
             game_choice = int(input("Please choose: "))
             if game_choice > 3:
                 print("That is not an option! Please try again.")
+                time.sleep(3)
+                os.system('cls||clear')
             elif game_choice == 1:
                 tic_tac_toe()
             elif game_choice == 2:
@@ -255,6 +257,8 @@ def play_arcade_game():
                 return True
         except ValueError:
             print("That is not an option. Please try again.")
+            time.sleep(3)
+            os.system('cls||clear')
 
 def main_menu_choice_1(list_option, player):
     item_loop = True
