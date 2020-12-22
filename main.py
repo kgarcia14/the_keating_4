@@ -19,11 +19,11 @@ def sound(file):
 
 
 # Character Instantiation
-crystal = Character('Crystal', 40, "Crystal starts with alert level of 40. Resourceful. Power: She can move to any room without the elevator.")
-jojo = Character('JoJo', 10, "Jojo starts with alert level of 10. Sneaky. Power: She can carry 1 extra item.")
-kurtis = Character('Kurtis', 30, "Kurtis starts with alert level of 30. Detail oriented. Power: After 80, his alert level penalty is decreased by half points.")
-joshua = Character('Joshua', 5, "Joshua starts with alert level of 5. Obsessive compulsive. Power: Doesn't leave a mess")
-annalise = Character('Annalise Keating', 0, "No mistakes!")
+crystal = Character('Crystal', 40, "she", "her", "Crystal starts with alert level of 40. Resourceful. Power: She can move to any room without the elevator.")
+jojo = Character('JoJo', 10, "she", "her", "Jojo starts with alert level of 10. Sneaky. Power: She can carry 1 extra item.")
+kurtis = Character('Kurtis', 30, "he", "his", "Kurtis starts with alert level of 30. Detail oriented. Power: After 80, his alert level penalty is decreased by half points.")
+joshua = Character('Joshua', 5, "he", "his","Joshua starts with alert level of 5. Obsessive compulsive. Power: Doesn't leave a mess")
+annalise = Character('Annalise Keating', 0, "she", "her", "No mistakes!")
 main_players = [crystal, jojo, kurtis, joshua]
 
 # Location Instantiation
@@ -67,7 +67,7 @@ items_josh_room = [monitor, jacket, bag_of_chips]
 tshirt = Item("t-shirt", liz_office, "shirt", False, -20)
 # input code in book and if you can solve unlocks ryan phone number and he distracts security guard for you
 book = Item("book", liz_office, "pass", "pass")
-keyboard = Item("keyboard", liz_office, "pass", "pass", 0, 15)
+keyboard = Item("keyboard", liz_office, "pass", "pass", 20)
 items_liz_office = [tshirt, book, keyboard]
 
 # # Elevator
@@ -78,7 +78,7 @@ items_elevator = [key_card, trash_can]
 # # Roof
 tarp = Item("tarp", roof, "pass", "pass", 0, -25)
 chair = Item("chair", roof, "pass", False, 20)
-firepit = Item("firepit", roof, "pass", False, -20)
+firepit = Item("firepit", roof, "pass", False, 20)
 items_roof = [tarp, chair, firepit]
 
 # Kitchen
@@ -89,7 +89,7 @@ items_kitchen = [sink, bleach, freezer]
 
 # # Gym
 shower = Item("shower", gym, "hands", False, -5)
-shower_curtain = Item("shower_curtain", gym, "pass", "pass", 0, -5)
+shower_curtain = Item("shower curtain", gym, "pass", "pass", 0, -5)
 weights = Item("weights", gym, "pass", "pass", 0, 35)
 items_gym = [shower, shower_curtain, weights]
 
@@ -157,17 +157,14 @@ def choosing_active_player():
     print(active_player)
     return active_player
 
-
 def print_string_menu(menu):
     for idx, choice in enumerate(menu):
         print(f"{idx+1}. {choice}")
-
 
 def print_menu(menu):
     for idx, choice in enumerate(menu):
         # print(type(choice))
         print(f"{idx+1}. {choice.name}")
-
 
 def print_location_options(location_options):
     location_name_list = []
@@ -175,9 +172,6 @@ def print_location_options(location_options):
         location_name_list.append(location)
     for idx, choice in enumerate(location_name_list):
         print(f"{idx+1}. {choice.name}")
-
-
-
 
 def which_list(room):
     if room == josh_room:
@@ -198,7 +192,6 @@ def which_list(room):
         return items_parking_garage
     if room == community_center:
         return items_community_center
-
 
 def remove_item_from_inventory(player):
     print_menu(player.items)
@@ -252,15 +245,18 @@ def main_menu_choice_1(list_option, player):
                     remove_item_from_inventory(player)
                     break
                 elif full_menu_choice == "n":
+                    item_loop = False
                     break
                 # incorrect responce error catch
                 else:
-                    print("\nThat is not a valid option, try again:")
-                    
+                    print("\nThat is not a valid option, try again:") 
+        elif len(list_option) == 0:
+            print("\nThere are no items left in this room")
+            item_loop = False     
         else:
             try:
                 item_chosen = int(input(
-                    "Which item would you like to pick up?\nNote: To exit, press 9.\nPlease choose: "))
+                    f"Which item would you like {player.name} to pick up?\nNote: To exit, press 9.\nPlease choose: "))
                 if item_chosen == 9:
                     item_loop = False
                 elif item_chosen > len(list_option):
@@ -275,32 +271,33 @@ def main_menu_choice_1(list_option, player):
                     player.alert_banner()
                     #player.print_alert_status()
                     list_option.pop(item_chosen-1)
-                    continue_choosing = input(
-                        "Would you like to choose another item? y or n\n")
-                    if continue_choosing.lower() == "y":
-                        pass
-                    elif continue_choosing.lower() == "n":
-                        os.system('cls||clear')
-                        item_loop = False
-                    else:
-                        print("That isn't an option. Please choose 'y' or 'n': ")
+                    if len(list_option) > 0:
+                        continue_choosing = input(
+                            "Would you like to choose another item? y or n\n")
+                        if continue_choosing.lower() == "y":
+                            pass
+                        elif continue_choosing.lower() == "n":
+                            os.system('cls||clear')
+                            item_loop = False
+                        else:
+                            print("That isn't an option. Please choose 'y' or 'n': ")
             except ValueError:
                 print("Please choose an available menu choice!")
     return play_game
-
 
 def main_menu_choice_2(location, player, list_option):
     play_game = True
     if len(player.items) > 0:
         print_menu(player.items)
         user_input = input("Press ENTER to continue")
-        if user_input == "041221":
-            print("You have unlocked the secret line to Ryan!\nNo worries, Ryan knows how to get rid of a body.\nYou can continue practicing your programming...\n\n\n*****GAME OVER*****")
-            play_game = "fart"
     else:
         print("\n**You have no items in your inventory.**")
         return play_game
-    if location == josh_room:
+    if user_input == "041221":
+            print("You have unlocked the secret line to Ryan!\nNo worries, Ryan knows how to get rid of a body.\nYou can continue practicing your programming...\n\n\n*****GAME OVER*****")
+            win_graphic()
+            play_game = "fart"
+    elif location == josh_room:
         print_string_menu(list_option)
         while True:
             try:
@@ -329,7 +326,6 @@ def main_menu_choice_2(location, player, list_option):
                 print("Please choose an available menu choice")
     return play_game
 
-
 def main_menu_choice_3(location, player):
     location_list = []
     if len(location_keys[location]) == 1 and location_keys[location][0] == elevator:
@@ -350,7 +346,7 @@ def main_menu_choice_3(location, player):
                     else:
                         sound("footsteps.wav")
                         print("\n\nWalking.....")
-                        time.sleep(10)
+                        time.sleep(3)
                     break
                 else:
                     print("That is not a valid choice. Please try again.")
@@ -412,7 +408,7 @@ Kurtis starts with alert level of {kurtis.alert_level}. Detail oriented. Power: 
 Joshua starts with alert level of {joshua.alert_level}. Obsessive compulsive. Power: Doesn't leave a mess
         ''')  # Add in player stats and special characteristics
         active_player = choosing_active_player()
-        welcome_message = f"Welcome to 'How To Get Away With MURDER!'\n\n{active_player.name} just woke up in a small room \nin the Atlanta Tech Village with a dead body on the \nfloor, bloody clothes and hands, with all evidence pointing \nto them. After looking around, it doesn't look like anyone \nhas noticed yet.{active_player.name} have dreams of becoming a top notch \nprogrammer and know that noone will believe they weren't \nthe murderer, in fact {active_player.name} isn't even sure they \ndidn't do it.Help {active_player.name} get away with this \nmurder so one day their programming dreams can be achieved. \nNavigate through the school and gather items that will help \nescape past the guard with the body to make it to the parking lot. \nBut beware -- everything you find will not be helpful and dont leave too much evidence around or you may be discovered. \nOnce you feel like you won't attract too much attention(alert level), try \nto sneak past the security desk and out of the door. GOOD LUCK! \nTIPS: \nYou must bring picked up items back to the murder room to use them. \nCarrying too many items at once will raise your alert level."
+        welcome_message = f"Welcome to 'How To Get Away With MURDER!'\n\n{active_player.name} just woke up in a small room in the Atlanta Tech Village with a dead body on the floor, bloody clothes and hands, with all evidence pointing to {active_player.pronoun}.\nAfter looking around, it doesn't look like anyone has noticed yet. \n{active_player.name} has dreams of becoming a top notch programmer and knows that noone will believe {active_player.pronoun} wasn't the murderer.\nIn fact, {active_player.name} isn't even sure {active_player.pronoun} didn't do it. \n\nHelp {active_player.name} get away with this murder so one day {active_player.pronoun2} programming dreams can be achieved. \n\nNavigate through the school and gather items that will help {active_player.pronoun2} escape past the guard with the body to make it to the parking lot. \nBut beware -- everything you find will not be helpful and dont leave too much evidence around or you may be discovered. \nOnce you feel like you won't attract too much attention(alert level), try to sneak past the security desk and out of the door. \n\n\n****GOOD LUCK!****\n\n\nTIPS: \n*You must bring picked up items back to the murder room to use them. \n*Carrying too many items at once will raise your alert level.\n\n\n"
         sound("breathing.wav")
         print(welcome_message)
         curr_location = josh_room
@@ -430,7 +426,7 @@ Joshua starts with alert level of {joshua.alert_level}. Obsessive compulsive. Po
                 # print(curr_location.name)
                 active_player.alert_banner()
                 #active_player.print_alert_status()
-                print("What would you like to do now?")
+                print(f"What would you like {active_player.name} to do now?")
                 elevator_only = False
                 if len(location_keys[curr_location]) == 1 and location_keys[curr_location][0] == elevator:
                     elevator_only = True
@@ -444,6 +440,9 @@ Joshua starts with alert level of {joshua.alert_level}. Obsessive compulsive. Po
                 main_menu_choice = input("Please choose: ")
                 if main_menu_choice == "1":
                     play_game = main_menu_choice_1(curr_items_list, active_player)
+                    if play_game == "fart":
+                        play_game = False
+                        same_location = False
                 elif main_menu_choice == "2":
                     play_game = main_menu_choice_2(curr_location, active_player, item_use_menu)
                     if play_game == "fart":
@@ -455,14 +454,14 @@ Joshua starts with alert level of {joshua.alert_level}. Obsessive compulsive. Po
                 elif main_menu_choice == "4":
                     play_game = False
                     same_location = False
-                    print("The police are on their way! you lose!")
+                    print("The police are on their way! You lose!")
                     caught_graphic()
                 elif main_menu_choice == "5":
                     play_game = main_menu_choice_5(curr_location, active_player)
                     same_location = False
                 else:
-                    print("That is not a good idea, let's choose a valid option this time, silly!")
-        play_again = input("Would you like to play again? 'y' or 'n': ")
+                    print("That isn't a choice. Please choose a valid option this time, silly!")
+        play_again = input("Would you like to play again? 'Y' or 'N': ")
         if play_again.lower() == 'y':
             continue_playing = True
         elif play_again.lower() == 'n':
