@@ -57,15 +57,15 @@ annalise = Character('Annalise Keating', 0, "No mistakes!")
 main_players = [crystal, jojo, kurtis, joshua]
 
 # Location Instantiation
-josh_room = Location("Sean's hide-out", "You are in your first room, the 'MURDER ROOM'")
-liz_office = Location("Liz's Office", "You are in Liz Carley room. Take a\n look around, but don't take\n too long, it will look suspicious if she\n catches you.")
-elevator = Location("Elevator", "You are in the elevator. This gives you access to anywhere in the building")
-roof = Location("Roof", "You are on the roof.\n Its a stormy evening and walking around dripping\n water might draw a few eyes.\n Better hurry and gather supplies")
-kitchen = Location("Kitchen", "You are in the kitchen.\n This is the busiest room in the building.\n You should do what you need to do quickly.")
-gym = Location("Gym", "You are in the gym.\n Its pretty hot in here. Sweating might\n not be the best idea today, I wouldnt\n take too long in here")
+josh_room = Location("Sean's hide-out", "\nYou are in your first room, the 'MURDER ROOM' aka Sean's hide-out")
+liz_office = Location("Liz's Office", "\nTake a look around, but don't take too long, it will look suspicious if she catches you.")
+elevator = Location("Elevator", "\nThis gives you access to anywhere in the building")
+roof = Location("Roof", "\n Its a stormy evening and walking around dripping water might draw a few eyes. Better hurry and gather supplies")
+kitchen = Location("Kitchen", "\n This is the busiest room in the building. You should do what you need to do quickly.")
+gym = Location("Gym", "\n Its pretty hot in here. Sweating might not be the best idea today, I wouldnt take too long in here")
 security_desk = Location("Security Desk", "security desk description")
 parking_garage = Location("Parking Garage", "parking garage description")
-community_center = Location("Community Center", "You are in the community center.\n Its a lot of cameras in here!")
+community_center = Location("Community Center", "\n Its a lot of cameras in here!")
 location_keys = {
     josh_room: [liz_office, kitchen, elevator],
     liz_office: [josh_room, kitchen, elevator],
@@ -345,20 +345,7 @@ def main_menu_choice_2(location, player, list_option):
                 if choice_item_use_menu == 3:
                     break
                 else:
-                    print("Please choose an available menu choice")
-            except ValueError:
-                print("Please choose an available menu choice")
-    return play_game
-
-
-def main_menu_choice_3(location):
-    location_list = []
-    if len(location_keys[location]) == 1 and location_keys[location][0] == elevator:
-        new_location = elevator
-        print("\n\n***You must take the elevator to your next location.***")
-    else:
-        for location in location_keys[location]:
-            location_list.append(location)
+                    print("Please choose an available menu choice
         print("Where would you like to go?")
         print_location_options(location_list)
         while True:
