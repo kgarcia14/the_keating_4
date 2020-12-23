@@ -3,6 +3,7 @@ from arcade import tic_tac_toe, number_guess
 from ascii_art import arcade_screen, game_start_graphic, caught_graphic, get_away_graphic, win_graphic , guess_number_graphic
 from subprocess import call
 import os
+from tqdm import tqdm
 import time
 os.system('cls' if os.name == 'nt' else 'clear')
 from pygame import mixer
@@ -50,7 +51,7 @@ location_keys = {
 #     liz_office: [josh_room, kitchen, elevator, roof, community_center, gym,
 #     kitchen: [liz_office, josh_room, elevator, roof, community_center, gym],
 #     elevator: [liz_office, josh_room, kitchen, roof, community_center, gym],
-#     roof: [liz_office, josh_room, kitchen, community_center, gym],
+#     roof: [liz_office, josh_room, kitchen, community_center, gym, elevator],
 #     community_center: [liz_office, josh_room, kitchen, roof, community_center, gym],
 #     gym: [liz_office, kitchen, elevator, roof, community_center, josh_room]
 # }
@@ -256,7 +257,7 @@ def main_menu_choice_1(list_option, player):
         else:
             try:
                 item_chosen = int(input(
-                    f"Which item would you like {player.name} to pick up?\nNote: To exit, press 9.\nPlease choose: "))
+                    f"Which item would you like {player.name} to pick up or use?\nNote: To exit, press 9.\nPlease choose: "))
                 if item_chosen == 9:
                     item_loop = False
                 elif item_chosen > len(list_option):
@@ -346,6 +347,8 @@ def main_menu_choice_3(location, player):
                     else:
                         sound("footsteps.wav")
                         print("\n\nWalking.....")
+                        for i in tqdm(range(int(13e6))): 
+                            pass
                         time.sleep(3)
                     break
                 else:
@@ -397,6 +400,18 @@ def play_game():
         os.system('cls||clear')
         game_start_graphic()# Here we can have a graphic for our game...
         # We need some info here about the game....so you know what character you want to choose, must use items in Josh's room!
+        print('Loading Game')
+        for i in tqdm(range(int(9e6))): 
+            pass
+        print('Loading Graphics')
+        for i in tqdm(range(int(13e6))): 
+            pass
+        print('Loading Objects')
+        for i in tqdm(range(int(18e6))): 
+            pass
+        print('Loading Murderer')
+        for i in tqdm(range(int(25e6))): 
+            pass
         print(f'''
 *****Player Characteristics******
 Crystal starts with alert level of {crystal.alert_level}. Resourceful. Power: She can move to any room without the elevator.
@@ -408,7 +423,7 @@ Kurtis starts with alert level of {kurtis.alert_level}. Detail oriented. Power: 
 Joshua starts with alert level of {joshua.alert_level}. Obsessive compulsive. Power: Doesn't leave a mess
         ''')  # Add in player stats and special characteristics
         active_player = choosing_active_player()
-        welcome_message = f"Welcome to 'How To Get Away With MURDER!'\n\n{active_player.name} just woke up in a small room in the Atlanta Tech Village with a dead body on the floor, bloody clothes and hands, with all evidence pointing to {active_player.pronoun}.\nAfter looking around, it doesn't look like anyone has noticed yet. \n{active_player.name} has dreams of becoming a top notch programmer and knows that noone will believe {active_player.pronoun} wasn't the murderer.\nIn fact, {active_player.name} isn't even sure {active_player.pronoun} didn't do it. \n\nHelp {active_player.name} get away with this murder so one day {active_player.pronoun2} programming dreams can be achieved. \n\nNavigate through the school and gather items that will help {active_player.pronoun2} escape past the guard with the body to make it to the parking lot. \nBut beware -- everything you find will not be helpful and dont leave too much evidence around or you may be discovered. \nOnce you feel like you won't attract too much attention(alert level), try to sneak past the security desk and out of the door. \n\n\n****GOOD LUCK!****\n\n\nTIPS: \n*You must bring picked up items back to the murder room to use them. \n*Carrying too many items at once will raise your alert level.\n\n\n"
+        welcome_message = f"Welcome to 'How To Get Away With MURDER!'\n\n{active_player.name} just woke up in a small room in the Atlanta Tech Village with a dead body on the floor, bloody clothes and hands, with all evidence pointing to {active_player.pronoun2}.\nAfter looking around, it doesn't look like anyone has noticed yet. \n{active_player.name} has dreams of becoming a top notch programmer and knows that noone will believe {active_player.pronoun} wasn't the murderer.\nIn fact, {active_player.name} isn't even sure {active_player.pronoun} didn't do it. \n\nHelp {active_player.name} get away with this murder so one day {active_player.pronoun2} programming dreams can be achieved. \n\nNavigate through the school and gather items that will help {active_player.pronoun2} escape past the guard with the body to make it to the parking lot. \nBut beware -- everything you find will not be helpful and dont leave too much evidence around or you may be discovered. \nOnce you feel like you won't attract too much attention(alert level), try to sneak past the security desk and out of the door. \n\n\n****GOOD LUCK!****\n\n\nTIPS: \n*You must bring picked up items back to the murder room to use them. \n*Carrying too many items at once will raise your alert level.\n\n\n"
         sound("breathing.wav")
         print(welcome_message)
         curr_location = josh_room
