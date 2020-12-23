@@ -21,19 +21,19 @@ def sound(file):
 
 # Character Instantiation
 crystal = Character('Crystal', 40, "she", "her", "Crystal starts with alert level of 40. Resourceful. Power: She can move to any room without the elevator.")
-jojo = Character('JoJo', 10, "she", "her", "Jojo starts with alert level of 10. Sneaky. Power: She can carry 1 extra item.")
+jojo = Character('JoJo', 10, "she", "her", "JoJo starts with alert level of 10. Sneaky. Power: She can carry 1 extra item.")
 kurtis = Character('Kurtis', 30, "he", "his", "Kurtis starts with alert level of 30. Detail oriented. Power: After 80, his alert level penalty is decreased by half points.")
 joshua = Character('Joshua', 5, "he", "his","Joshua starts with alert level of 5. Obsessive compulsive. Power: Doesn't leave a mess")
 annalise = Character('Annalise Keating', 0, "she", "her", "No mistakes!")
 main_players = [crystal, jojo, kurtis, joshua]
 
 # Location Instantiation
-josh_room = Location("Sean's hide-out", "\nYou are in your first room, the 'MURDER ROOM'")
+josh_room = Location("Sean's hide-out", "\nYou are in your first room, the 'MURDER ROOM'.")
 liz_office = Location("Liz's Office", "\nTake a look around, but don't take too long, it will look suspicious if she catches you.")
-elevator = Location("Elevator", "\nThis gives you access to anywhere in the building")
-roof = Location("Roof", "\n Its a stormy evening and walking around dripping water might draw a few eyes. Better hurry and gather supplies")
-kitchen = Location("Kitchen", "\n This is the busiest room in the building. You should do what you need to do quickly.")
-gym = Location("Gym", "\n Its pretty hot in here. Sweating might not be the best idea today, I wouldn't take too long in here")
+elevator = Location("Elevator", "\nThis gives you access to anywhere in the building.")
+roof = Location("Roof", "\nIt's a stormy evening and walking around dripping water might draw a few eyes. Better hurry and gather supplies.")
+kitchen = Location("Kitchen", "\nThis is the busiest room in the building. You should do what you need to do quickly.")
+gym = Location("Gym", "\nIt's pretty hot in here. Sweating might not be the best idea today, I wouldn't take too long in here.")
 security_desk = Location("Security Desk", "security desk description")
 parking_garage = Location("Parking Garage", "parking garage description")
 community_center = Location("Community Center", "\nYou are in the community center. Its a lot of cameras in here!")
@@ -292,7 +292,7 @@ def main_menu_choice_2(location, player, list_option):
         print_menu(player.items)
         user_input = input("Press ENTER to continue")
     else:
-        print("\n**You have no items in your inventory.**")
+        print("\n**You have no items in your inventory.**\n")
         return play_game
     if user_input == "041221":
             print("You have unlocked the secret line to Ryan!\nNo worries, Ryan knows how to get rid of a body.\nYou can continue practicing your programming...\n\n\n*****GAME OVER*****")
@@ -420,7 +420,7 @@ Jojo starts with alert level of {jojo.alert_level}. Sneaky. Power: She can carry
 
 Kurtis starts with alert level of {kurtis.alert_level}. Detail oriented. Power: After 80, his alert level penalty is decreased by half points.
 
-Joshua starts with alert level of {joshua.alert_level}. Obsessive compulsive. Power: Doesn't leave a mess
+Joshua starts with alert level of {joshua.alert_level}. Obsessive compulsive. Power: Doesn't leave a mess.
         ''')  # Add in player stats and special characteristics
         active_player = choosing_active_player()
         welcome_message = f"Welcome to 'How To Get Away With MURDER!'\n\n{active_player.name} just woke up in a small room in the Atlanta Tech Village with a dead body on the floor, bloody clothes and hands, with all evidence pointing to {active_player.pronoun2}.\nAfter looking around, it doesn't look like anyone has noticed yet. \n{active_player.name} has dreams of becoming a top notch programmer and knows that noone will believe {active_player.pronoun} wasn't the murderer.\nIn fact, {active_player.name} isn't even sure {active_player.pronoun} didn't do it. \n\nHelp {active_player.name} get away with this murder so one day {active_player.pronoun2} programming dreams can be achieved. \n\nNavigate through the school and gather items that will help {active_player.pronoun2} escape past the guard with the body to make it to the parking lot. \nBut beware -- everything you find will not be helpful and dont leave too much evidence around or you may be discovered. \nOnce you feel like you won't attract too much attention(alert level), try to sneak past the security desk and out of the door. \n\n\n****GOOD LUCK!****\n\n\nTIPS: \n*You must bring picked up items back to the murder room to use them. \n*Carrying too many items at once will raise your alert level.\n\n\n"

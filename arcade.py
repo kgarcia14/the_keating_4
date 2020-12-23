@@ -81,12 +81,12 @@ def tic_tac_toe():
             player = 2
         else:
             player = 1
-       
-        print("Computer's Turn!")
-        time.sleep(3)
-        os.system('cls||clear')
-        print("Welcome to the Tic Tac Toe Game!\nPlease follow the instructions carefully!")
-        print("\nHere is your board!\nYou are X and Sean the computer is O.\n")
+        if rabbit_foot == True:
+            print("Computer's Turn!")
+            time.sleep(3)
+            os.system('cls||clear')
+            print("Welcome to the Tic Tac Toe Game!\nPlease follow the instructions carefully!")
+            print("\nHere is your board!\nYou are X and Sean the computer is O.\n")
         
     #Computer's Turn!
         while True:
