@@ -349,7 +349,6 @@ def main_menu_choice_3(location, player):
                         print("\n\nWalking.....")
                         for i in tqdm(range(int(13e6))): 
                             pass
-                        time.sleep(3)
                     break
                 else:
                     print("That is not a valid choice. Please try again.")
