@@ -1,6 +1,7 @@
 from subprocess import call
 import os
 import time
+from tqdm import tqdm
 from ascii_art import caught_graphic, get_away_graphic, win_graphic
 from pygame import mixer
 mixer.init()
@@ -37,7 +38,7 @@ class Character:
 
     def add_items(self, item):
         if item.on_use == False:
-            for part in self.parts:
+            for part in (self.parts):
                 if item.character_part == part[0]:
                     part[1] = False
                     print(f"Your {part[0]} is now clean! One step closer to escaping!")
@@ -105,7 +106,8 @@ class Character:
         print("*****")
         time.sleep(1)
         os.system('cls||clear')
-
+        for i in tqdm(range(int(13e6))): 
+            pass
     def elevator_going_down(self):
         sound("elevator.wav")
         os.system('cls||clear')
@@ -154,7 +156,8 @@ class Character:
         ''')
         time.sleep(1)
         os.system('cls||clear')
-
+        for i in tqdm(range(int(13e6))): 
+            pass
     def sneak_past_security(self):
         sound("footsteps.wav")
         os.system('cls||clear')
@@ -173,7 +176,8 @@ class Character:
         print("----*")
         time.sleep(.5)
         os.system('cls||clear')
-
+        for i in tqdm(range(int(13e6))): 
+            pass
     def casual_past_security(self):
         sound("footsteps.wav")
         os.system('cls||clear')
@@ -192,7 +196,8 @@ class Character:
         print("----|")
         time.sleep(.5)
         os.system('cls||clear')
-
+        for i in tqdm(range(int(13e6))): 
+            pass
     def garage_scene(self):
         print("You made it to the garage! You did it! But is Brittani waiting for you?")
         time.sleep(3)
@@ -210,7 +215,7 @@ class Character:
     #     self.item.pop
 
     def __str__(self):
-        return f"****You have chosen {self.name}! Congrats!****\n\n{self.name} has a starting alert level of {self.alert_level}.\n\nAlso, surprise! Each character has a hidden special ability.\nWe like to call {self.name}'s:\n****{self.ability}****"
+        return f"****You have chosen {self.name}! Congrats!****\n\n"
 
 
 class Location:
